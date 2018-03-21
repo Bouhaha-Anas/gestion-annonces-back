@@ -3,6 +3,7 @@ package com.epi.pfa.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.epi.pfa.model.Entrepreneur;
@@ -14,8 +15,15 @@ public class EntrepreneurService
 	@Autowired
 	EntrepreneurRepository entrepreneurRepository;
 	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	public void addEntrepreneur(Entrepreneur entrepreneur)
 	{
+		//entrepreneur.getCompte().setMotDePasse(bCryptPasswordEncoder.encode(entrepreneur.getCompte().getMotDePasse()));
+		entrepreneur.getCompte().setEnabled(true);
+		entrepreneur.getCompte().setRole("ENTREPRENEUR");
+		
 		entrepreneurRepository.save(entrepreneur);
 	}
 

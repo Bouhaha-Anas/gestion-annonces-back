@@ -2,6 +2,7 @@ package com.epi.pfa.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.epi.pfa.model.Client;
 import com.epi.pfa.repository.ClientRepository;
@@ -11,6 +12,8 @@ public class ClientService
 {
 	@Autowired
 	ClientRepository clientRepository;
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public List<Client> getAllClients()
 	{
@@ -19,6 +22,9 @@ public class ClientService
 	
 	public void addClient(Client client)
 	{
+		//client.getCompte().setMotDePasse(bCryptPasswordEncoder.encode(client.getCompte().getMotDePasse()));
+		client.getCompte().setEnabled(true);
+		client.getCompte().setRole("CLIENT");
 		clientRepository.save(client);
 	}
 	

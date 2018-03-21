@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title></title>
+</head>
+<body>
+		<h3>Ceci est la page d'accueil</h3>
+		<div>
+			<form th:action="@{/logout}" method="get">
+				<button class="btn btn-md btn-warning btn-block" type="Submit">Se déconnecter</button>
+			</form>
+		</div>
+</body>
+</html>

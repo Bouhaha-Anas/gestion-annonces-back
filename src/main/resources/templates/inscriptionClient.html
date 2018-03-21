@@ -34,6 +34,17 @@
 					
 					<div class="form-group">
 						<div class="col-sm-9">
+							<select th:field="*{ville}" class="form-control" >
+							   <option th:each="villes : ${T(com.epi.pfa.model.Ville).values()}"
+							          th:value="${villes}" 
+							          th:text="${villes}">
+							   </option>
+							</select> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
 							<input type="text" th:field="*{cin}"	placeholder="CIN" class="form-control" /> 
 						</div>
 					</div>
@@ -58,24 +69,15 @@
 				
 				    <div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{ville}"	placeholder="Ville" class="form-control" /> 
-						</div>
-					</div>
-				
-				    <div class="form-group">
-						<div class="col-sm-9">
 							<input type="text" th:field="*{compte.login}"	placeholder="Login" class="form-control" /> 
 						</div>
 					</div>
 				
 				    <div class="form-group">
 						<div class="col-sm-9">
-							<input type="text" th:field="*{compte.motDePasse}"	placeholder="Mot de passe" class="form-control" /> 
+							<input type="password" th:field="*{compte.motDePasse}"	placeholder="Mot de passe" class="form-control" /> 
 						</div>
 					</div>
-					
-					<input type="hidden" th:field="*{compte.role}" th:value="CLIENT" />
-					<input type="hidden" th:field="*{compte.enabled}" th:value="true" />
 
 					<div class="form-group">
 						<div class="col-sm-9">
@@ -84,7 +86,6 @@
 					</div>
 					
 					<span th:utext="${successMessage}"></span>
-					
 					
 				</form>
 			</div>
