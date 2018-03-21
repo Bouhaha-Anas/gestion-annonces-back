@@ -25,12 +25,6 @@ public class ClientController
 		return clientService.getAllClients();
 	}
 	
-	@RequestMapping( value="/clients/addClient", method= RequestMethod.POST )
-	public void addClient(@RequestBody Client client)
-	{
-		clientService.addClient(client);
-	}
-	
 	@RequestMapping( value="/clients/{id}", method= RequestMethod.GET )
 	public Client getClient(@PathVariable Long id)
 	{

@@ -16,4 +16,9 @@ public class CompteService
 	{
 		compteRepository.save(compte);
 	}
+	
+	public Compte findOneByLogin(String login) 
+	{
+		return compteRepository.findOneByLogin(login);
+	}
 }

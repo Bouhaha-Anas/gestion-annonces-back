@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Inscription Clients</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+		<div class="col-md-6 col-md-offset-3" >
+			<form th:action="@{/login}" method="get">
+				<button class="btn btn-md btn-warning btn-block" type="Submit">Se connecter</button>
+			</form>
+		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#" th:action="@{/inscriptionEntrepreneur}" th:object="${entrepreneur}" method="post" class="form-horizontal"	role="form">
+					<h2>Formulaire d'inscription</h2>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{denominationSociale}" placeholder="Dénomination sociale" class="form-control" /> 
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{formeJuridique}"	placeholder="Forme juridique" class="form-control" /> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{secteurActivite}"	placeholder="Secteur d'activité" class="form-control" /> 
+						</div>
+					</div>
+			
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{registreCommerce}"	placeholder="Registre de commerce" class="form-control" /> 
+						</div>
+					</div>
+				
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{siegeSocial}"	placeholder="Siège social" class="form-control" /> 
+						</div>
+					</div>
+				
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{telephone}"	placeholder="Télephone" class="form-control" /> 
+						</div>
+					</div>
+				
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{siteWeb}"	placeholder="Site web" class="form-control" /> 
+						</div>
+					</div>
+					
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{codeISIN}"	placeholder="Code ISIN" class="form-control" /> 
+						</div>
+					</div>
+					
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{objetSocial}"	placeholder="Objet social" class="form-control" /> 
+						</div>
+					</div>
+					
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{dateConstitution}"	placeholder="Date de constitution" class="form-control" /> 
+						</div>
+					</div>
+				
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{compte.login}"	placeholder="Login" class="form-control" /> 
+						</div>
+					</div>
+				
+				    <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{compte.motDePasse}"	placeholder="Mot de passe" class="form-control" /> 
+						</div>
+					</div>
+					
+					<input type="hidden" th:field="*{compte.role}" th:value="CLIENT" />
+					<input type="hidden" th:field="*{compte.enabled}" th:value="true" />
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Créer le compte</button>
+						</div>
+					</div>
+					
+					<span th:utext="${successMessage}"></span>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

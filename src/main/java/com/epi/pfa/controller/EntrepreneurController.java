@@ -26,12 +26,6 @@ public class EntrepreneurController
 		return entrepreneurService.getAllEntrepreneurs();
 	}
 	
-	@RequestMapping( value="/entrepreneurs/addEntrepreneur", method= RequestMethod.POST )
-	public void addEntrepreneur(@RequestBody Entrepreneur entrepreneur)
-	{
-		entrepreneurService.addEntrepreneur(entrepreneur);
-	}
-	
 	@RequestMapping( value="/entrepreneurs/{id}", method= RequestMethod.GET )
 	public Entrepreneur getEntrepreneur(@PathVariable Long id)
 	{
