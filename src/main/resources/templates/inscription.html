@@ -39,7 +39,7 @@
 											<input type="text" th:field="*{nom}" placeholder="Nom *" class="form-control" />
 											<input type="text" th:field="*{prenom}"	placeholder="Prénom *" class="form-control" />
 											<select th:field="*{ville}" class="form-control" >
-								   				<option th:each="villes : ${T(com.epi.pfa.model.Ville).values()}"
+								   				<option th:each="villes : ${T(com.epi.pfa.model.Ville).values()}" 
 											          th:value="${villes}" 
 											          th:text="${villes}">
 											   	</option>
