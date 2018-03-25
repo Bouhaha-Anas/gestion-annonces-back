@@ -4,11 +4,14 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -28,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		auth.jdbcAuthentication()
 				.usersByUsernameQuery("select login, mot_de_passe, enabled from comptes where login=?")
 				.authoritiesByUsernameQuery("select login, role from comptes where login=?")
-				.dataSource(dataSource);		
+				.dataSource(dataSource);
+		
 	}
 
 	@Override
@@ -40,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.antMatchers("/login").permitAll()
 			.antMatchers("/inscriptionClient").permitAll()
 			.antMatchers("/inscriptionEntrepreneur").permitAll()
-			.antMatchers("/profil").hasAuthority("CLIENT")
+			.antMatchers("/profilClient","profilClient/parametresGeneraux/{id}").hasAnyAuthority("CLIENT")
+			.antMatchers("/profilEntrepreneur").hasAnyAuthority("ENTREPRENEUR")
 			.anyRequest()
 				.authenticated()
 			.and()
@@ -56,9 +61,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 				.invalidateHttpSession(true)
 				.clearAuthentication(true)
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login")
+				.logoutSuccessUrl("/accueil")
 			.and()
 			.exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler);
-	}	
+		
+//		http.sessionManagement()
+//        	.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+//        	.maximumSessions(2)
+//        	.expiredUrl("/sessionExpired.html")
+//        	.and()
+//        	.invalidSessionUrl("/invalidSession.html");
+			
+		
+	}
+	
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	    return new HttpSessionEventPublisher();
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception 
+	{
+	    web
+	       .ignoring()
+	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**");
+	}
+	
 }

@@ -1,7 +1,6 @@
 package com.epi.pfa.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -10,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,8 +23,10 @@ public class Produit implements Serializable
 	private Long id;
 	private String nom;
 	private String description;
-	private Float prix;
-	private Blob image;
+	private Float prixAvantRed;
+	private Float prixApresRed;
+	@Lob
+	private byte[] image;
 	private Date dateDebut;
 	private Date dateFin;
 	private Boolean estActive;
@@ -67,22 +69,6 @@ public class Produit implements Serializable
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Float getPrix() {
-		return prix;
-	}
-
-	public void setPrix(Float prix) {
-		this.prix = prix;
-	}
-
-	public Blob getImage() {
-		return image;
-	}
-
-	public void setImage(Blob image) {
-		this.image = image;
 	}
 
 	public Date getDateDebut() {
@@ -132,7 +118,30 @@ public class Produit implements Serializable
 	public void setCommandes(List<Commande> commandes) {
 		this.commandes = commandes;
 	}
-	
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public Float getPrixAvantRed() {
+		return prixAvantRed;
+	}
+
+	public void setPrixAvantRed(Float prixAvantRed) {
+		this.prixAvantRed = prixAvantRed;
+	}
+
+	public Float getPrixApresRed() {
+		return prixApresRed;
+	}
+
+	public void setPrixApresRed(Float prixApresRed) {
+		this.prixApresRed = prixApresRed;
+	}
 	
 
 }

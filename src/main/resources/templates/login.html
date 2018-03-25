@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-
-<head>
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="headerTag :: headerFragment" >
 	<title>Connexion</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-	<form th:action="@{/inscriptionClient}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">S'inscrire</button>
-	</form>	
-	
-	<div class="container">
-		<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
-		<form autocomplete="off" th:action="@{/login}" method="POST" class="form-signin">
-			<h3 class="form-signin-heading" th:text="Bienvenue"></h3>
-			<br/>
-			 
-			<input type="text" id="email" name="login"  placeholder="Login"
-				class="form-control" /> <br/> 
-			<input type="password"  placeholder="Mot de passe"
-				id="password" name="motDePasse" class="form-control" /> <br /> 
-				
-			<div align="center" th:if="${param.error}">
-				<p style="font-size: 20; color: #FF1C19;">Login ou mot de passe invalide, vérifier</p>
+	<div id="wrapper" >
+		<header th:replace="~{head}" id="header">
+		</header>
+		
+		<main id="main">
+			<!-- banner of the page -->
+			<section class="banner banner3 bg-full overlay" style="background-image: url(images/img30.jpg);">
+				<div class="holder">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 text-center">
+								<h1>Login</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<div class="twocolumns pad-top-lg pad-bottom-lg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- Register holder of the page -->
+							<div class="register-holder">
+								<div class="txt-holder">
+									<h3 class="heading2">Connectez-vous maintenant!</h3>
+									<p>Entrez vos détails pour se connecter</p>
+									<form autocomplete="off" th:action="@{/login}" method="POST" class="register-form">
+										<fieldset>
+											<input type="text" class="form-control" name="login" placeholder="Login *">
+											<input type="password" class="form-control" name="motDePasse" placeholder="Mot de passe *">
+											<div align="center" th:if="${param.error}">
+												<p style="font-size: 20; color: #FF1C19;">Login ou mot de passe invalides, vérifier</p>
+											</div>
+											<button type="submit" class="btn-primary text-center text-uppercase">Se connecter</button>
+										</fieldset>
+									</form>
+									<div class="btn-holder">
+										<a href="#" class="google-btn"><i class="fa fa-google-plus"></i> Sign in with Goolge</a>
+										<a href="#" class="fb-btn"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+									</div>
+								</div>
+								<div class="img-holder">
+									<img th:src="@{/images/img63.jpg}" alt="image description" class="img-responsive">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" name="Submit" type="Submit">Se connecter</button>
-		</form>
-	</div>
+		</main>
+		
+		<footer th:replace="~{footer}" id="footer" >
+		</footer>
+		
+		<span id="back-top" class="text-center md-round fa fa-angle-up"></span>
+		<div id="loader" class="loader-holder">
+			<div class="block"><img th:src="@{/images/svg/bars.svg}" width="60" alt="loader"></div>
+		</div>	
+	</div> 
+	<script th:src="@{/js/jquery.js}"></script>
+	<script th:src="@{/js/plugins.js}"></script>
+	<script th:src="@{/js/jquery.main.js}"></script>
 </body>
 </html>

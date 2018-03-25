@@ -145,5 +145,6 @@ public class Client implements Serializable
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
+
 	
 }

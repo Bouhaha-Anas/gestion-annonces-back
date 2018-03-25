@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-<title></title>
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="headerTag :: headerFragment" >
+	<title>Accueil</title>
 </head>
 <body>
-		<h3>Ceci est la page d'accueil</h3>
-		<div>
-			<form th:action="@{/logout}" method="get">
-				<button class="btn btn-md btn-warning btn-block" type="Submit">Se déconnecter</button>
-			</form>
-		</div>
+	<div id="wrapper" >
+		<header th:replace="~{head}" id="header">
+		</header>
+		
+		<main id="main">
+			<section class="banner bg-full overlay" style="background-image: url(images/img01.jpg);">
+				<div class="holder">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 text-left">
+								<h1 class="text-uppercase">It looks like it's <br class="hidden-xs">been furnished <br class="hidden-xs">by <span class="clr">discount</span> <br class="hidden-xs">stores.</h1>
+								<form action="#" class="search-form lg-round">
+									<fieldset>
+										<label for="search"><i class="icon icon-search"></i></label>
+										<input type="search" class="form-control" id="search" placeholder="Search coupons & deals">
+										<button type="submit" class="btn-icon"><i class="icon-right-arrow"></i></button>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+		
+		<footer th:replace="~{footer}" id="footer" >
+		</footer>
+		
+		<span id="back-top" class="text-center md-round fa fa-angle-up"></span>
+		<div id="loader" class="loader-holder">
+			<div class="block"><img th:src="@{/images/svg/bars.svg}" width="60" alt="loader"></div>
+		</div>	
+	</div> 
+	<script th:src="@{/js/jquery.js}"></script>
+	<script th:src="@{/js/plugins.js}"></script>
+	<script th:src="@{/js/jquery.main.js}"></script>
 </body>
 </html>

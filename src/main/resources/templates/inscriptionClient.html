@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/inscriptionClient}" th:object="${client}" method="post" class="form-horizontal"	role="form">
+				<form autocomplete="off" action="#" th:action="@{/inscriptionClient}" th:object="${client}" method="post" class="form-horizontal" enctype="multipart/form-data"	role="form">
 					<h2>Formulaire d'inscription</h2>
 					
 					<div class="form-group">
@@ -70,6 +70,12 @@
 				    <div class="form-group">
 						<div class="col-sm-9">
 							<input type="text" th:field="*{compte.login}"	placeholder="Login" class="form-control" /> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="file" th:field="*{image}"	placeholder="Login" class="form-control" /> 
 						</div>
 					</div>
 				

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.epi.pfa.model.Compte;
 import com.epi.pfa.model.Entrepreneur;
 import com.epi.pfa.repository.EntrepreneurRepository;
 
@@ -37,7 +38,7 @@ public class EntrepreneurService
 		return entrepreneurRepository.findOne(id);
 	}
 
-	public void updateEntrepreneur(Long id, Entrepreneur entrepreneur) 
+	public void updateEntrepreneur(Entrepreneur entrepreneur) 
 	{
 		entrepreneurRepository.save(entrepreneur);
 	}
@@ -47,5 +48,9 @@ public class EntrepreneurService
 		entrepreneurRepository.delete(id);
 	}
 
+	public Entrepreneur findOneByCompte(Compte compte)
+	{
+		return entrepreneurRepository.findOneByCompte(compte);
+	}
 	
 }

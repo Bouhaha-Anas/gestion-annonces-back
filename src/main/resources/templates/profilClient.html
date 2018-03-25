@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<meta charset="utf-8" ></meta>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/profilSideBar.css}" />
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<title>Profil</title>
+</head>
+<body>
+
+	
+	<div class="container" th:object="${client}" >
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src= />
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name"  >
+						<span th:text="${client.nom}" ></span>
+						<span th:text="${client.prenom}" ></span>
+					</div>
+					<div class="profile-usertitle-job">
+						Developer
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active" >
+							<a th:href="@{/profilClient/parametresGeneraux}">
+							<i class="glyphicon glyphicon-user"></i>
+							Paramètres Généraux </a>
+						</li>
+						<li>
+							<a th:href="@{/profilClient/mesCommandes}">
+							<i class="glyphicon glyphicon-screenshot"></i>
+							Commandes </a>
+						</li>
+						<li>
+							<a th:href="@{/profilClient/mesRecommandations}">
+							<i class="glyphicon glyphicon-star-empty"></i>
+							Recommandations </a>
+						</li>
+						<li>
+							<a th:href="@{/profilClient/mesMassages}">
+							<i class="glyphicon glyphicon-envelope"></i>
+							Messages </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+		
+				<div class="row" th:if="${#httpServletRequest.requestURI == '/profilClient/parametresGeneraux'}" >
+					<div class="col-md-6 col-md-offset-3">
+						<form autocomplete="off" th:object="${client}" th:action="@{/profilClient/parametresGeneraux/}+${client.id}" th:method="put" class="form-horizontal"	role="form" enctype="application/x-www-form-urlencoded">
+							<h4>Paramètres Généraux</h4>
+							
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{nom}"  th:value="${client.nom}" class="form-control" /> 
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{prenom}" th:value="${client.prenom}" class="form-control" /> 
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-9">
+									<select  class="form-control" th:field="*{ville}" >
+									   <option th:each="villes : ${T(com.epi.pfa.model.Ville).values()}"
+									          th:value="${villes}" 
+									          th:text="${villes}"
+									          th:selected="${client.ville}">
+									   </option>
+									</select> 
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{cin}" th:value="${client.cin}" class="form-control" /> 
+								</div>
+							</div>
+					
+						    <div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{telephone}"	th:value="${client.telephone}" class="form-control" /> 
+								</div>
+							</div>
+						
+						    <div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{adresseMail}" th:value="${client.adresseMail}" class="form-control" /> 
+								</div>
+							</div>
+						
+						    <div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{adresse}" th:value="${client.adresse}" class="form-control" /> 
+								</div>
+							</div>
+						
+						    <div class="form-group">
+								<div class="col-sm-9">
+									<input type="text" th:field="*{compte.login}" 	th:value="${client.compte.login}" class="form-control" /> 
+								</div>
+							</div>
+						
+						    <div class="form-group">
+								<div class="col-sm-9">
+									<input type="password" th:field="*{compte.motDePasse}"	th:value="${client.compte.motDePasse}" class="form-control" /> 
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<div class="col-sm-9">
+									<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+								</div>
+							</div>
+							
+							<span th:utext="${successMessage}"></span>
+							
+						</form>
+					</div>
+				</div>
+				
+				<div class="row" th:if="${#httpServletRequest.requestURI == '/profilClient/mesCommandes'}">
+      				Mes commandes ici
+				</div>
+				
+				<div class="row" th:if="${#httpServletRequest.requestURI == '/profilClient/mesRecommandations'}">
+      				Mes recommandations ici
+				</div>
+				
+				<div class="row" th:if="${#httpServletRequest.requestURI == '/profilClient/mesMassages'}">
+      				Mes messages ici 
+				</div>
+				
+            </div>
+		</div>
+	</div>
+</div>
+
+
+
+
+	
+	
+		
+
+	
+		
+</body>
+</html>

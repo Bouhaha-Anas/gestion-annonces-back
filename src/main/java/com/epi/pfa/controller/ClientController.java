@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +28,6 @@ public class ClientController
 	public Client getClient(@PathVariable Long id)
 	{
 		return clientService.getClient(id);
-	}
-	
-	@RequestMapping( value="/clients/{id}", method= RequestMethod.PUT )
-	public void updateClient(@PathVariable Long id, @RequestBody Client client)
-	{
-		clientService.updateClient(id, client);
 	}
 	
 	@RequestMapping( value="/clients/{id}", method= RequestMethod.DELETE )
