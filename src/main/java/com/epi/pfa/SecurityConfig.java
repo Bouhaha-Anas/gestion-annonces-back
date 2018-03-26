@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.antMatchers("/inscription").permitAll()
 			.antMatchers("/inscriptionClient").permitAll()
 			.antMatchers("/inscriptionEntrepreneur").permitAll()
-			.antMatchers("/profilClient","profilClient/parametresGeneraux/{id}").hasAnyAuthority("CLIENT")
+			.antMatchers("/profilClient","profilClient/parametresGeneraux").hasAnyAuthority("CLIENT")
 			.antMatchers("/profilEntrepreneur").hasAnyAuthority("ENTREPRENEUR")
 			.anyRequest()
 				.authenticated()

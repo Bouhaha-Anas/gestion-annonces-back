@@ -21,7 +21,7 @@ public class Client implements Serializable
 	
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	public Long id;
 	private String nom;
 	private String prenom;
 	private String telephone;
@@ -137,5 +137,13 @@ public class Client implements Serializable
 		this.compte = compte;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone
+				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", compte=" + compte
+				+ ", contacts=" + contacts + ", commandes=" + commandes + ", recommandations=" + recommandations + "]";
+	}
+
+	
 	
 }

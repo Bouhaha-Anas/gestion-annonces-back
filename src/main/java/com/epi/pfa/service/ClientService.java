@@ -1,5 +1,6 @@
 package com.epi.pfa.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.epi.pfa.HibernateUtilities;
 import com.epi.pfa.model.Client;
 import com.epi.pfa.model.Compte;
 import com.epi.pfa.repository.ClientRepository;
@@ -39,10 +41,18 @@ public class ClientService
 		return clientRepository.findOne(id);
 	}
 	
-	public void updateClient(Long id, Client client) 
+	public void updateClient(Client client) 
 	{
-		client = clientRepository.findOneById(id);
-		clientRepository.saveAndFlush(client);
+//		client = clientRepository.findOneById(id);
+//		clientRepository.saveAndFlush(client);
+		System.out.println(client);
+		Class cl=Client.class;
+		System.out.println("zeeee"+Arrays.toString(cl.getFields()));
+		session = HibernateUtilities.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(client);
+		session.getTransaction().commit();
+		session.close();
 	}
 	
 	public void deleteClient(Long id) 

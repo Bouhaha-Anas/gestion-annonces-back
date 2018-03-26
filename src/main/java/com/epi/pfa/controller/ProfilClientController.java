@@ -25,6 +25,22 @@ public class ProfilClientController
 	@Autowired
 	CompteService compteService;
 	
+	@RequestMapping( value= "/profilClient", method= RequestMethod.GET )
+	public ModelAndView profilClient()
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		Compte compte = compteService.findOneByLogin(login);
+		Client client = clientService.findOneByCompte(compte);
+		
+		modelAndView.addObject("client", client);
+		modelAndView.setViewName("profilClient");
+		
+		return modelAndView;
+	}
+	
 	@RequestMapping( value= "/profilClient/parametresGeneraux", method= RequestMethod.GET )
 	public ModelAndView profilClientParametresGeneraux()
 	{
@@ -89,12 +105,12 @@ public class ProfilClientController
 		return modelAndView;
 	}
 	
-	@RequestMapping( value="/profilClient/parametresGeneraux/{id}", method= RequestMethod.PUT )
-	public ModelAndView modifierProfilClient(@PathVariable Long id, @Valid Client client)
+	@RequestMapping( value="/profilClient/parametresGeneraux", method= RequestMethod.POST )
+	public ModelAndView modifierProfilClient(@Valid Client client)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-				 
-		clientService.updateClient(id,client);
+		
+		clientService.updateClient(client);
 		
 		String successMessage = "Vos informations sont mises à jour avec succés";
 		modelAndView.addObject("successMessage", successMessage );		
