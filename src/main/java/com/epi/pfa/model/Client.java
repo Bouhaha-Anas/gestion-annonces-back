@@ -23,7 +23,7 @@ public class Client implements Serializable
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	public Long id;
 	private String nom;
-	private String prenom;
+	private String prenom; 
 	private String telephone;
 	
 	@Column( unique=true )
@@ -32,10 +32,10 @@ public class Client implements Serializable
 	private Ville ville;
 	
 	@OneToOne( cascade = {CascadeType.ALL} , orphanRemoval = true )
-	@JoinColumn( unique=true )
+	@JoinColumn
 	private Compte compte;
 	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "client" )
+	@OneToMany( cascade=CascadeType.ALL, mappedBy = "client" )
 	private List<Contact> contacts;
 	
 	@OneToMany( mappedBy="client" )

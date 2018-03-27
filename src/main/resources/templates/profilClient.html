@@ -71,7 +71,7 @@
 		
 				<div class="row" th:if="${#httpServletRequest.requestURI == '/profilClient/parametresGeneraux'}" >
 					<div class="col-md-6 col-md-offset-3">
-						<form autocomplete="off" th:object="${client}" th:action="@{/profilClient/parametresGeneraux}" th:method="post" class="form-horizontal"	role="form" enctype="application/x-www-form-urlencoded">
+						<form autocomplete="off" th:object="${client}" th:action="@{/profilClient/parametresGeneraux}" th:method="put" class="form-horizontal"	role="form" enctype="application/x-www-form-urlencoded">
 							<h4>Paramètres Généraux</h4>
 							<input type="hidden" th:field="*{id}" th:value="${client.id}" /> 
 							<div class="form-group">
@@ -127,12 +127,13 @@
 									<input type="password" th:field="*{compte.motDePasse}"	th:value="${client.compte.motDePasse}" class="form-control" /> 
 								</div>
 							</div>
-		
+<!-- 							<input type="hidden" th:field="*{compte.enabled}"  th:checked="${compte.enabled}" class="form-control" /> -->
+							<input type="hidden" th:field="*{compte.role}" th:value="CLIENT" class="form-control" />
 							<div class="form-group">
 								<div class="col-sm-9">
 									<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
 								</div>
-							</div>
+							</div> 
 							
 							<span th:utext="${successMessage}"></span>
 							

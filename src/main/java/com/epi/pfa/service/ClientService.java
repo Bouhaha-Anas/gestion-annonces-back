@@ -1,14 +1,14 @@
 package com.epi.pfa.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.epi.pfa.HibernateUtilities;
 import com.epi.pfa.model.Client;
 import com.epi.pfa.model.Compte;
 import com.epi.pfa.repository.ClientRepository;
@@ -20,8 +20,12 @@ public class ClientService
 	
 	@Autowired
 	ClientRepository clientRepository;
+	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	SessionFactory sessionFactory;
 	
 	public List<Client> getAllClients()
 	{
@@ -41,18 +45,18 @@ public class ClientService
 		return clientRepository.findOne(id);
 	}
 	
+	@Transactional
 	public void updateClient(Client client) 
 	{
 //		client = clientRepository.findOneById(id);
 //		clientRepository.saveAndFlush(client);
-		System.out.println(client);
-		Class cl=Client.class;
-		System.out.println("zeeee"+Arrays.toString(cl.getFields()));
-		session = HibernateUtilities.getSessionFactory().openSession();
-		session.beginTransaction();
-		session.update(client);
-		session.getTransaction().commit();
-		session.close();
+//		session = sessionFactory.openSession();
+//		session.beginTransaction();
+//		session.merge(client);
+//		session.getTransaction().commit();
+//		session.close();
+		client.getCompte().setEnabled(true);
+		clientRepository.save(client);
 	}
 	
 	public void deleteClient(Long id) 
