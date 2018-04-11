@@ -26,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private LoggingAccessDeniedHandler accessDeniedHandler;
 	
 	@Autowired
+	private AuthenticationFailureHandler authenticationFailureHandler;
+	
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
 	{
 		auth.jdbcAuthentication()
@@ -44,7 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.antMatchers("/login").permitAll()
 			.antMatchers("/inscription").permitAll()
 			.antMatchers("/inscriptionClient").permitAll()
+			.antMatchers("/inscriptionConfirm**").permitAll()
 			.antMatchers("/inscriptionEntrepreneur").permitAll()
+			.antMatchers("/confirmationInscription").permitAll()
 			.antMatchers("/profilClient","profilClient/parametresGeneraux").hasAnyAuthority("CLIENT")
 			.antMatchers("/profilEntrepreneur").hasAnyAuthority("ENTREPRENEUR")
 			.anyRequest()
@@ -53,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.csrf()
 				.disable().formLogin()
 			.loginPage("/login")
-				.failureUrl("/login?error=true")
+				.failureHandler(authenticationFailureHandler)
 				.defaultSuccessUrl("/accueil")
 				.usernameParameter("login")
 				.passwordParameter("motDePasse")

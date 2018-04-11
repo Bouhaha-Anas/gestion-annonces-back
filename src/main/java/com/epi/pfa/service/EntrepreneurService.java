@@ -22,7 +22,6 @@ public class EntrepreneurService
 	public void addEntrepreneur(Entrepreneur entrepreneur)
 	{
 		//entrepreneur.getCompte().setMotDePasse(bCryptPasswordEncoder.encode(entrepreneur.getCompte().getMotDePasse()));
-		entrepreneur.getCompte().setEnabled(true);
 		entrepreneur.getCompte().setRole("ENTREPRENEUR");
 		
 		entrepreneurRepository.save(entrepreneur);
@@ -51,6 +50,11 @@ public class EntrepreneurService
 	public Entrepreneur findOneByCompte(Compte compte)
 	{
 		return entrepreneurRepository.findOneByCompte(compte);
+	}
+	
+	public Entrepreneur findOneByAdresseMail( String adresseMail )
+	{
+		return entrepreneurRepository.findOneByAdresseMail(adresseMail);
 	}
 	
 }

@@ -9,7 +9,5 @@ public interface ClientRepository extends JpaRepository<Client, Long>
 {
 	Client findOneByCompte(Compte compte);
 	Client findOneById(Long id);
-	
-	
-	
+	Client findOneByAdresseMail(String adresseMail);
 }

@@ -1,6 +1,6 @@
 package com.epi.pfa.controller;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,7 +40,7 @@ public class ProfilEntrepreneurController
 	}
 	
 	@RequestMapping( value="/profilEntrepreneur", method= RequestMethod.PUT )
-	public ModelAndView modifierProfilEntrepreneur(@Valid Entrepreneur entrepreneur)
+	public ModelAndView modifierProfilEntrepreneur( Entrepreneur entrepreneur)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 	

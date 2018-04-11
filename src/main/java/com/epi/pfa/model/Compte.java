@@ -19,7 +19,7 @@ public class Compte implements Serializable
 	private String motDePasse;
 	private String role;
 	
-	@Column( columnDefinition="boolean default true" )
+	@Column( columnDefinition="boolean default false" )
 	private Boolean enabled;
 	
 	public Compte()

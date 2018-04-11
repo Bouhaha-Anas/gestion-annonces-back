@@ -37,12 +37,13 @@
 										<fieldset>
 											<input type="text" class="form-control" name="login" placeholder="Login *">
 											<input type="password" class="form-control" name="motDePasse" placeholder="Mot de passe *">
-											<div align="center" th:if="${param.error}">
-												<p style="font-size: 20; color: #FF1C19;">Login ou mot de passe invalides, vérifier</p>
+											<div align="center" th:if="${param.error != null}" >
+												<p style="font-size: 20; color: #FF1C19;" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}" ></p>
 											</div>
 											<button type="submit" class="btn-primary text-center text-uppercase">Se connecter</button>
 										</fieldset>
 									</form>
+									
 									<div class="btn-holder">
 										<a href="#" class="google-btn"><i class="fa fa-google-plus"></i> Sign in with Goolge</a>
 										<a href="#" class="fb-btn"><i class="fa fa-facebook"></i> Sign in with Facebook</a>

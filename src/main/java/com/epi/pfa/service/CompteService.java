@@ -21,4 +21,9 @@ public class CompteService
 	{
 		return compteRepository.findOneByLogin(login);
 	}
+	
+	public void updateCompte(Compte compte)
+	{
+		compteRepository.save(compte);
+	}
 }

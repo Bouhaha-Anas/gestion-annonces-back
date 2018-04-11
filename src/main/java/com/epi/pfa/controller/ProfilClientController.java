@@ -1,6 +1,6 @@
 package com.epi.pfa.controller;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -105,7 +105,7 @@ public class ProfilClientController
 	}
 	
 	@RequestMapping( value="/profilClient/parametresGeneraux", method= RequestMethod.PUT )
-	public ModelAndView modifierProfilClient(@Valid Client client)
+	public ModelAndView modifierProfilClient( Client client)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		

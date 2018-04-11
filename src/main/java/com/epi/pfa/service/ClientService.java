@@ -35,7 +35,7 @@ public class ClientService
 	public void addClient(Client client)
 	{
 		//client.getCompte().setMotDePasse(bCryptPasswordEncoder.encode(client.getCompte().getMotDePasse()));
-		client.getCompte().setEnabled(true);
+		client.getCompte().setEnabled(false);
 		client.getCompte().setRole("CLIENT");
 		clientRepository.save(client);
 	}
@@ -48,14 +48,6 @@ public class ClientService
 	@Transactional
 	public void updateClient(Client client) 
 	{
-//		client = clientRepository.findOneById(id);
-//		clientRepository.saveAndFlush(client);
-//		session = sessionFactory.openSession();
-//		session.beginTransaction();
-//		session.merge(client);
-//		session.getTransaction().commit();
-//		session.close();
-		client.getCompte().setEnabled(true);
 		clientRepository.save(client);
 	}
 	
@@ -67,5 +59,10 @@ public class ClientService
 	public Client findOneByCompte(Compte compte)
 	{
 		return clientRepository.findOneByCompte(compte);
+	}
+	
+	public Client findOneByAdresseMail( String adresseMail )
+	{
+		return clientRepository.findOneByAdresseMail(adresseMail);
 	}
 }

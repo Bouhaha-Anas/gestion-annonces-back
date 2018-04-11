@@ -49,7 +49,6 @@
 											<input type="text" th:field="*{adresse}"	placeholder="Adresse *" class="form-control" />
 											<input type="text" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
 											<input type="password" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
-											<span th:utext="${successMessage}"></span>
 											<button type="submit" class="btn-primary text-center text-uppercase">Créer un compte</button>
 										</fieldset>
 									</form>
@@ -69,11 +68,10 @@
 											<input type="text" th:field="*{dateConstitution}"	placeholder="DD/MM/YY" class="form-control" />
 											<input type="text" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
 											<input type="text" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
-											<span th:utext="${successMessage}"></span>
 											<button type="submit" class="btn-primary text-center text-uppercase">Créer un compte</button>
 										</fieldset>
 									</form>
-									
+									<span th:utext="${errorMessage}"></span>
 									<div class="btn-holder">
 										<a href="#" class="google-btn"><i class="fa fa-google-plus"></i> Sign in with Goolge</a>
 										<a href="#" class="fb-btn"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
