@@ -295,7 +295,7 @@ a:hover, a:focus, a.active {
 }
 
 #header .search-form .jcf-select {
-  min-width: 185px;
+  width: 40%;
   height: 43px;
   margin: 0;
   border: none;
@@ -332,7 +332,7 @@ a:hover, a:focus, a.active {
   color: #777777;
   font-weight: 400;
   float: left;
-  width: 56%;
+  width: 49.3%;
   height: 43px;
   background: none;
   border: none;

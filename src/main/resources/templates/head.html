@@ -23,15 +23,14 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="logo">
-							<a href="home.html"><img src="images/logo.png" alt="Coupmy" class="img-responsive"></a>
+							<a th:href="@{/accueil}"><img th:src="@{/images/logo.png}" alt="Coupmy" class="img-responsive"></a>
 						</div>
 						<div class="search-cart">
 							<form action="#" class="search-form">
 								<fieldset>
 									<select>
-										<option value="0">Select Category</option>
-										<option value="1">Select Category</option>
-										<option value="2">Select Category</option>
+										<option value="0">Selectionner Catégorie</option>
+										<option th:each="categorie : ${categories}" th:text="${categorie.nom}"></option>
 									</select>
 									<input type="search" class="form-control" placeholder="Enter Keyword . . .">
 									<button type="submit" class="sub-btn"><i class="icon-search"></i></button>
@@ -62,13 +61,13 @@
 									</li>
 									<li><a href="#">Notifications</a></li>
 									<li sec:authorize="hasAuthority('CLIENT')" >
-										<a href="#">Profil</a>
-										<ul class="drop-down list-unstyled">
-											<li><a href="{profilClient/parametresGeneraux}">Paramètres généraux</a></li>
-											<li><a href="@{/profilClient/mesCommandes}">Mes commandes</a></li>
-											<li><a href="@{/profilClient/mesRecommandations}">Mes recommandations</a></li>
-											<li><a href="@{/profilClient/mesMassages}">Mes messages</a></li>
-										</ul>
+										<a href="#">Profil</a>							
+											<ul class="drop-down list-unstyled">
+												<li><a href="@{/profilClient/parametresGeneraux}">Paramètres généraux</a></li>
+												<li><a href="@{/profilClient/mesCommandes}">Mes commandes</a></li>
+												<li><a th:href="@{/profilClient/mesRecommandations}">Mes recommandations</a></li>
+												<li><a href="@{/profilClient/mesMassages}">Mes messages</a></li>
+											</ul>
 									</li>
 									
 									<li sec:authorize="hasAuthority('ENTREPRENEUR')" >

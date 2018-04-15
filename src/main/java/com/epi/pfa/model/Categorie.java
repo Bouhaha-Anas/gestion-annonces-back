@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity( name="categories" )
@@ -23,15 +21,8 @@ public class Categorie implements Serializable
 	private Long id;
 	private String nom;
 	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "categorie", fetch=FetchType.EAGER )
+	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "categorie", fetch=FetchType.LAZY )
 	private List<Produit> produits;
-	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "categorie", fetch=FetchType.EAGER )
-	private List<Categorie> categories;
-	
-	@ManyToOne( fetch = FetchType.EAGER )
-	@JoinColumn( name = "categorie_id" )
-	private Categorie categorie;
 	
 	@OneToMany( mappedBy="categorie" )
 	private List<Recommandation> recommandations;
@@ -63,22 +54,6 @@ public class Categorie implements Serializable
 
 	public void setProduits(List<Produit> produits) {
 		this.produits = produits;
-	}
-
-	public List<Categorie> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Categorie> categories) {
-		this.categories = categories;
-	}
-
-	public Categorie getCategorie() {
-		return categorie;
-	}
-
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
 	}
 
 	public List<Recommandation> getRecommandations() {

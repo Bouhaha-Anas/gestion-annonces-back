@@ -1,4 +1,4 @@
-package com.epi.pfa;
+package com.epi.pfa.utilities;
 
 import java.util.UUID;
 

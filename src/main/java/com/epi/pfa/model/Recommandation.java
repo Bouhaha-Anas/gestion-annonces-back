@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 public class Recommandation 
 {
 	@EmbeddedId
-	private RecommandationPK recommandationPK;
+	private RecommandationPrimaryKey recommandationPrimaryKey;
 	
 	@ManyToOne
 	@JoinColumn( name="idCategorie", referencedColumnName="id", insertable=false, updatable=false )
@@ -19,12 +19,12 @@ public class Recommandation
 	@JoinColumn( name="idClient", referencedColumnName="id", insertable=false, updatable=false )
 	private Client client;
 
-	public RecommandationPK getRecommandationPK() {
-		return recommandationPK;
+	public RecommandationPrimaryKey getRecommandationPrimaryKey() {
+		return recommandationPrimaryKey;
 	}
 
-	public void setRecommandationPK(RecommandationPK recommandationPK) {
-		this.recommandationPK = recommandationPK;
+	public void setRecommandationPrimaryKey(RecommandationPrimaryKey recommandationPrimaryKey) {
+		this.recommandationPrimaryKey = recommandationPrimaryKey;
 	}
 
 	public Categorie getCategorie() {

@@ -1,4 +1,4 @@
-package com.epi.pfa;
+package com.epi.pfa.utilities;
 
 import javax.sql.DataSource;
 
@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	
 	@Autowired
 	private AuthenticationFailureHandler authenticationFailureHandler;
+	
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
@@ -59,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 				.disable().formLogin()
 			.loginPage("/login")
 				.failureHandler(authenticationFailureHandler)
-				.defaultSuccessUrl("/accueil")
+				.successHandler(customAuthenticationSuccessHandler)
 				.usernameParameter("login")
 				.passwordParameter("motDePasse")
 			.and()

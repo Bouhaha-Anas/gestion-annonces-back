@@ -1,5 +1,9 @@
 package com.epi.pfa.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.epi.pfa.model.Categorie;
 import com.epi.pfa.model.Client;
 import com.epi.pfa.model.Compte;
+import com.epi.pfa.model.Recommandation;
+import com.epi.pfa.model.RecommandationPrimaryKey;
+import com.epi.pfa.service.CategorieService;
 import com.epi.pfa.service.ClientService;
 import com.epi.pfa.service.CompteService;
+import com.epi.pfa.service.RecommandationService;
 
 @RestController
 public class ProfilClientController 
@@ -23,6 +32,12 @@ public class ProfilClientController
 	
 	@Autowired
 	CompteService compteService;
+	
+	@Autowired
+	CategorieService categorieService;
+	
+	@Autowired
+	RecommandationService recommandationService;
 	
 	@RequestMapping( value= "/profilClient", method= RequestMethod.GET )
 	public ModelAndView profilClient()
@@ -82,8 +97,68 @@ public class ProfilClientController
 		Compte compte = compteService.findOneByLogin(login);
 		Client client = clientService.findOneByCompte(compte);
 		
+		List<Categorie> mesFavoris = categorieService.findRecommanded(client.getId());
+		List<Categorie> remainCategories = categorieService.findNotYetRecommanded(client.getId());
+		
+		modelAndView.addObject("remainCategories", remainCategories);
+		modelAndView.addObject("mesFavoris", mesFavoris);
 		modelAndView.addObject("client", client);
-		modelAndView.setViewName("profilClient");
+		modelAndView.setViewName("recommandations");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping( value= "/profilClient/mesRecommandations", method= RequestMethod.POST )
+	public ModelAndView profilClientRecommandationsAjout(HttpServletRequest request)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		Compte compte = compteService.findOneByLogin(login);
+		Client client = clientService.findOneByCompte(compte);
+		
+		String[] categories =  request.getParameterValues("cats");
+		
+		for(int i=0; i < categories.length; i++)
+		{
+			Categorie categorie = categorieService.findOneByNom(categories[i]);
+			
+			RecommandationPrimaryKey recommandationPrimaryKey = new RecommandationPrimaryKey();
+			recommandationPrimaryKey.setIdCategorie(categorie.getId());
+			recommandationPrimaryKey.setIdClient(client.getId());
+			
+			Recommandation recommandation = new Recommandation();		
+			recommandation.setRecommandationPrimaryKey(recommandationPrimaryKey);
+			recommandation.setClient(client);
+			recommandation.setCategorie(categorie);
+			recommandationService.addRecommandation(recommandation);		
+		}
+		
+		modelAndView.setViewName("recommandations");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping( value= "/profilClient/mesRecommandations", method= RequestMethod.DELETE )
+	public ModelAndView profilClientRecommandationsSupprimer(HttpServletRequest request)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		Compte compte = compteService.findOneByLogin(login);
+		Client client = clientService.findOneByCompte(compte);
+		
+		String[] remoCat =  request.getParameterValues("remoCat");
+		
+		for( int i=0; i < remoCat.length; i++ )
+		{
+			Categorie categorie = categorieService.findOneByNom(remoCat[i]);
+			recommandationService.deleteRecommandation(client.getId(), categorie.getId());
+		}
+		
+		modelAndView.setViewName("recommandations");
 		
 		return modelAndView;
 	}

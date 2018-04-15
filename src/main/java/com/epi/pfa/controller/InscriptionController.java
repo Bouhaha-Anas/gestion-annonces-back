@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.epi.pfa.OnRegistrationCompleteEvent;
 import com.epi.pfa.model.Client;
 import com.epi.pfa.model.Compte;
 import com.epi.pfa.model.Entrepreneur;
@@ -20,6 +19,7 @@ import com.epi.pfa.repository.VerificationTokenRepository;
 import com.epi.pfa.service.ClientService;
 import com.epi.pfa.service.CompteService;
 import com.epi.pfa.service.EntrepreneurService;
+import com.epi.pfa.utilities.OnRegistrationCompleteEvent;
 
 @RestController
 public class InscriptionController 
