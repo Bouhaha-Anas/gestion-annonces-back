@@ -30,7 +30,7 @@
 								<fieldset>
 									<select>
 										<option value="0">Selectionner Catégorie</option>
-										<option th:each="categorie : ${categories}" th:text="${categorie.nom}"></option>
+										<option th:each="categorie : ${#servletContext.getAttribute('categories')}" th:text="${categorie.nom}"></option>
 									</select>
 									<input type="search" class="form-control" placeholder="Enter Keyword . . .">
 									<button type="submit" class="sub-btn"><i class="icon-search"></i></button>
@@ -80,7 +80,7 @@
 									</li>
 								</ul>
 							</nav>
-							<a sec:authorize="hasAuthority('ENTREPRENEUR')" href="" class="btn-primary text-center text-uppercase">Nouvelle offre</a>
+							<a sec:authorize="hasAuthority('ENTREPRENEUR')" th:href="@{/nouvelleOffre}" class="btn-primary text-center text-uppercase">Nouvelle offre</a>
 						</div>
 					</div>
 				</div>

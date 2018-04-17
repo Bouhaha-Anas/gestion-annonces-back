@@ -1,5 +1,7 @@
 package com.epi.pfa.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +89,11 @@ public class InscriptionController
 	}
 	
 	@RequestMapping( value="/inscriptionClient", method= RequestMethod.POST )
-	public ModelAndView addClient( Client client, WebRequest request)
+	public ModelAndView addClient( Client client, WebRequest request, HttpServletRequest req)
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
 		Client tempClient = clientService.findOneByAdresseMail(client.getAdresseMail());
-		
 		
 		if(tempClient != null)
 		{

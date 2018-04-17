@@ -3,6 +3,8 @@ package com.epi.pfa.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,16 +21,22 @@ public class Produit implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
+	
 	private String nom;
 	private String description;
 	private Float prixAvantRed;
 	private Float prixApresRed;
+	
 	@Lob
 	private byte[] image;
+	
 	private Date dateDebut;
+	
 	private Date dateFin;
+	
+	@Column( columnDefinition="boolean default true" )
 	private Boolean estActive;
 	
 	@ManyToOne( fetch = FetchType.EAGER )

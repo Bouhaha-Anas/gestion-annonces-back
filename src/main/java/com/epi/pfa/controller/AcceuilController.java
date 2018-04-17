@@ -2,6 +2,8 @@ package com.epi.pfa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,12 +20,13 @@ public class AcceuilController
 	CategorieService categorieService;
 	
 	@RequestMapping( value= "/accueil", method = RequestMethod.GET )
-	public ModelAndView accueil()
+	public ModelAndView accueil(HttpServletRequest request)
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		List<Categorie> categories = categorieService.findAllCategories();
 		
-		modelAndView.addObject("categories",categories); 
+		List<Categorie> categories = categorieService.findAllCategories();		
+		request.getServletContext().setAttribute("categories", categories);
+
 		modelAndView.setViewName("accueil");
 		
 		return modelAndView;
