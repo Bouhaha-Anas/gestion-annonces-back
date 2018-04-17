@@ -32,6 +32,7 @@ public class Entrepreneur implements Serializable
 	private String codeISIN;
 	private String objetSocial;
 	private Date dateConstitution;
+	private String logo;
 	
 	@OneToOne( cascade = {CascadeType.ALL} , orphanRemoval = true )
 	@JoinColumn( unique=true )
@@ -166,5 +167,13 @@ public class Entrepreneur implements Serializable
 
 	public void setCompte(Compte compte) {
 		this.compte = compte;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}		
 }

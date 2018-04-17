@@ -32,14 +32,19 @@
 							<article id="content">
 								<!-- header content of the page -->
 								<header class="header-content">
-									<div class="alert alert-success alert-dismissible" th:if="${successMessage != null}" th:text="${successMessage}">
-  										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-									</div>
+									<div th:if="${ successMessage != null }" class="alert alert-success alert-dismissible fade in">
+    									<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    									<strong th:text="${successMessage}" ></strong>	
+  									</div>
+  									<div th:if="${ errorMessage != null }" class="alert alert-danger alert-dismissible fade in">
+    									<a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    									<strong th:text="${errorMessage}" ></strong>	
+  									</div>
 									<h2 class="heading3">Nouvelle offre</h2>
 									<p><i>Remplir ce formulaire pour valider votre offre !</i></p>
 								</header>
 								<!-- Sub Form of the page -->
-								<form autocomplete="off" th:action="@{/nouvelleOffre}" th:method="post" th:object="${produit}" class="sub-form">
+								<form enctype='multipart/form-data' autocomplete="off" th:action="@{/nouvelleOffre}" th:method="post" th:object="${produit}" class="sub-form">
 									<fieldset>
 										<div class="form-group">
 											<div class="col">
@@ -75,7 +80,7 @@
 										</div>
 										<div class="form-group">
 											<label>Image jointe <span class="clr">*</span></label>
-											<input type="file" class="form-control">
+											<input type="file" name="imageP" class="form-control">
 										</div>					
 										<button class="btn-primary text-center text-uppercase">valider offre</button>
 									</fieldset>

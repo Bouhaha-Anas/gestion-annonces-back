@@ -1,7 +1,6 @@
 package com.epi.pfa.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -32,9 +30,7 @@ public class Client implements Serializable
 	private String adresseMail;
 	private String adresse;
 	private Ville ville;
-	
-	@Lob
-    private byte[] image;
+    private String image;
 	
 	@OneToOne( cascade = {CascadeType.ALL} , orphanRemoval = true )
 	@JoinColumn
@@ -144,19 +140,21 @@ public class Client implements Serializable
 	
 	
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone
-				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", image="
-				+ Arrays.toString(image) + ", compte=" + compte + ", contacts=" + contacts + ", commandes=" + commandes
-				+ ", recommandations=" + recommandations + "]";
+				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", image=" + image
+				+ ", compte=" + compte + ", contacts=" + contacts + ", commandes=" + commandes + ", recommandations="
+				+ recommandations + "]";
 	}
+	
 }

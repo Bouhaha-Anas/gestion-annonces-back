@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,12 +27,8 @@ public class Produit implements Serializable
 	private String description;
 	private Float prixAvantRed;
 	private Float prixApresRed;
-	
-	@Lob
-	private byte[] image;
-	
+	private String image;
 	private Date dateDebut;
-	
 	private Date dateFin;
 	
 	@Column( columnDefinition="boolean default true" )
@@ -127,11 +122,11 @@ public class Produit implements Serializable
 		this.commandes = commandes;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -150,6 +145,15 @@ public class Produit implements Serializable
 	public void setPrixApresRed(Float prixApresRed) {
 		this.prixApresRed = prixApresRed;
 	}
-	
 
+	@Override
+	public String toString() 
+	{
+		return "Produit [id=" + id + ", nom=" + nom + ", description=" + description + ", prixAvantRed=" + prixAvantRed
+				+ ", prixApresRed=" + prixApresRed + ", image=" + image + ", dateDebut=" + dateDebut + ", dateFin="
+				+ dateFin + ", estActive=" + estActive + ", entrepreneur=" + entrepreneur + ", categorie=" + categorie
+				+ ", commandes=" + commandes + "]";
+	}
+	
+	
 }

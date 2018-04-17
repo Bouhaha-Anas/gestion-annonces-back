@@ -1,6 +1,10 @@
 package com.epi.pfa.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 //import javax.validation.Valid;
 
@@ -22,10 +26,14 @@ import com.epi.pfa.service.ClientService;
 import com.epi.pfa.service.CompteService;
 import com.epi.pfa.service.EntrepreneurService;
 import com.epi.pfa.utilities.OnRegistrationCompleteEvent;
+import com.epi.pfa.utilities.UploadingTask;
 
 @RestController
 public class InscriptionController 
 {
+	public static final String CHEMIN_FICHIERS_CLIENTS = "D:/Ingenieurie/Semestre2/PFA/Work-Space/gestion-annonces/src/main/resources/static/images/uploaded-images/images-clients/";
+	public static final String CHEMIN_FICHIERS_ENTREPRENEURS = "D:/Ingenieurie/Semestre2/PFA/Work-Space/gestion-annonces/src/main/resources/static/images/uploaded-images/images-entrepreneurs/";
+	
 	@Autowired
 	ClientService clientService;
 	
@@ -89,7 +97,7 @@ public class InscriptionController
 	}
 	
 	@RequestMapping( value="/inscriptionClient", method= RequestMethod.POST )
-	public ModelAndView addClient( Client client, WebRequest request, HttpServletRequest req)
+	public ModelAndView addClient( Client client, WebRequest request, HttpServletRequest req) throws ServletException,IOException
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -104,6 +112,16 @@ public class InscriptionController
 		}
 		else
 		{
+			
+			Part part = req.getPart("imageC");
+			String nomFichier = UploadingTask.getNomFichier(part);
+			if (nomFichier != null && !nomFichier.isEmpty()) 
+			{	   
+	            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
+	            System.out.println(nomFichier);
+	            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_CLIENTS);
+	        }
+			client.setImage(CHEMIN_FICHIERS_CLIENTS+nomFichier);
 			clientService.addClient(client);
 			
 			try
@@ -137,8 +155,8 @@ public class InscriptionController
 		return modelAndView;
 	}
 	
-	@RequestMapping( value="/inscriptionEntrepreneur", method= RequestMethod.POST )
-	public ModelAndView addEntrepreneur( Entrepreneur entrepreneur, WebRequest request)
+	@RequestMapping( value="/inscriptionEntrepreneur", method= RequestMethod.POST ) 
+	public ModelAndView addEntrepreneur( Entrepreneur entrepreneur, WebRequest request, HttpServletRequest req) throws ServletException,IOException
 	{
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -154,6 +172,15 @@ public class InscriptionController
 		}
 		else
 		{
+			Part part = req.getPart("logoE");
+			String nomFichier = UploadingTask.getNomFichier(part);
+			if (nomFichier != null && !nomFichier.isEmpty()) 
+			{	   
+	            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
+	            System.out.println(nomFichier);
+	            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_ENTREPRENEURS);
+	        }
+			entrepreneur.setLogo(CHEMIN_FICHIERS_ENTREPRENEURS+nomFichier);
 			entrepreneurService.addEntrepreneur(entrepreneur);
 			
 			try

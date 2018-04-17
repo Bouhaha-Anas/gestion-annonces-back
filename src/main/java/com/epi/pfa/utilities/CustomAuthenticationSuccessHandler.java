@@ -28,15 +28,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         
         String beforeURL = httpServletRequest.getHeader("referer");
+        Object[] role =  auth.getAuthorities().toArray();
         
-        if( beforeURL.contains("/inscriptionConfirm") )
+        if(role[0].equals("CLIENT"))
         {
-        	System.out.println("confirm");
-        	httpServletResponse.sendRedirect("profilClient");
-        }
+        	if( beforeURL.contains("/inscriptionConfirm") )
+            {
+            	httpServletResponse.sendRedirect("profilClient/mesRecommandations");
+            }
+        }  
         else
         {
-        	System.out.println("login");
         	httpServletResponse.sendRedirect("accueil");
         }
         
