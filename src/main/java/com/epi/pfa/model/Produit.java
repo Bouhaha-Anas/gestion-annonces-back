@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity( name="produits" )
 public class Produit implements Serializable 
@@ -28,7 +30,10 @@ public class Produit implements Serializable
 	private Float prixAvantRed;
 	private Float prixApresRed;
 	private String image;
+	
+	@Temporal( TemporalType.DATE )
 	private Date dateDebut;
+	@Temporal( TemporalType.DATE )
 	private Date dateFin;
 	
 	@Column( columnDefinition="boolean default true" )

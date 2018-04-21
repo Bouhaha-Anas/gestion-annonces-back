@@ -9,6 +9,8 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<span class="txt">Bienvenue chez Univers-Promo, Gagnez + avec nos offres</span>
+<!-- 							<img sec:authorize="hasAuthority('CLIENT')" th:src="@{/images/uploaded-images/images-clients/${session.client.image}}" class="image circle-pic"/> -->
+<!-- 							<img sec:authorize="hasAuthority('ENTREPRENEUR')" th:src="@{/images/uploaded-images/images-entrepreneurs/${session.entrepreneur.logo}}" class="image circle-pic"/> -->
 							<ul class="align-left list-unstyled">
 								<li sec:authorize="!isAuthenticated()" ><a th:href="@{/login}"><i class="fa fa-unlock-alt"></i> Login</a></li>
 								<li sec:authorize="isAuthenticated()" ><a th:href="@{/logout}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
@@ -26,13 +28,13 @@
 							<a th:href="@{/accueil}"><img th:src="@{/images/logo.png}" alt="Coupmy" class="img-responsive"></a>
 						</div>
 						<div class="search-cart">
-							<form action="#" class="search-form">
+							<form th:action="@{/accueil/resultatRecherche}" th:method="get" class="search-form">
 								<fieldset>
-									<select>
+									<select name="nomC">
 										<option value="0">Selectionner Catégorie</option>
 										<option th:each="categorie : ${#servletContext.getAttribute('categories')}" th:text="${categorie.nom}"></option>
 									</select>
-									<input type="search" class="form-control" placeholder="Enter Keyword . . .">
+									<input type="search" class="form-control" name="nomP" placeholder="Enter Keyword . . .">
 									<button type="submit" class="sub-btn"><i class="icon-search"></i></button>
 								</fieldset>
 							</form>

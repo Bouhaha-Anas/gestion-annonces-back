@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.epi.pfa.model.Categorie;
+import com.epi.pfa.model.Produit;
 import com.epi.pfa.service.CategorieService;
+import com.epi.pfa.service.ProduitService;
 
 @RestController
 public class AcceuilController 
 {
 	@Autowired
-	CategorieService categorieService;
+	private CategorieService categorieService;
+	
+	@Autowired
+	private ProduitService produitService;
 	
 	@RequestMapping( value= "/accueil", method = RequestMethod.GET )
 	public ModelAndView accueil(HttpServletRequest request)
@@ -26,7 +31,31 @@ public class AcceuilController
 		
 		List<Categorie> categories = categorieService.findAllCategories();		
 		request.getServletContext().setAttribute("categories", categories);
-
+		
+		List<Produit> produitsActifs = produitService.getAllActiveProducts();
+		List<Produit> produitsPasses = produitService.getAllPassedProducts();
+		
+		modelAndView.addObject("produitsActifs", produitsActifs);
+		modelAndView.addObject("produitsPasses", produitsPasses);
+		modelAndView.setViewName("accueil");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping( value= "/accueil/resultatRecherche", method = RequestMethod.GET )
+	public ModelAndView accueilSearch(HttpServletRequest request)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		String nomP = request.getParameter("nomP");
+		String nomC = request.getParameter("nomC");
+		List<Produit> rechercheProduits = produitService.searchByCategorie(nomP, nomC);
+		System.out.println("RESULTAAAT : "+rechercheProduits);
+		List<Produit> produitsActifs = produitService.getAllActiveProducts();
+		List<Produit> produitsPasses = produitService.getAllPassedProducts();
+		
+		modelAndView.addObject("rechercheProduits", rechercheProduits);
+		modelAndView.addObject("produitsActifs", produitsActifs);
+		modelAndView.addObject("produitsPasses", produitsPasses);
 		modelAndView.setViewName("accueil");
 		
 		return modelAndView;

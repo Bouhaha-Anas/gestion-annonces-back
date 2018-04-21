@@ -20,5 +20,6 @@ public interface CategorieRepository extends JpaRepository<Categorie, Long>
 			   + " where id in ( select id_categorie from recommandations "
 							     + " where id_client = :id )", nativeQuery= true ) 
 	public List<Categorie> findRecommanded(@Param("id") Long id);
+	
 	public Categorie findOneByNom(String nom);
 }

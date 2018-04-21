@@ -121,14 +121,15 @@
 									<input type="text" th:field="*{compte.login}" 	th:value="${client.compte.login}" class="form-control" /> 
 								</div>
 							</div>
-						
 						    <div class="form-group">
 								<div class="col-sm-9">
 									<input type="password" th:field="*{compte.motDePasse}"	th:value="${client.compte.motDePasse}" class="form-control" /> 
 								</div>
 							</div>
-<!-- 							<input type="hidden" th:field="*{compte.enabled}"  th:checked="${compte.enabled}" class="form-control" /> -->
-							<input type="hidden" th:field="*{compte.role}" th:value="CLIENT" class="form-control" />
+ 							<input type="hidden" th:field="*{compte.enabled}"  th:value="${client.compte.enabled}" />
+							<input type="hidden" th:field="*{compte.role}" th:value="CLIENT" />
+							<input type="hidden" th:field="*{compte.id}" th:value="${client.compte.id}" />
+<!-- 							<input type="hidden" th:field="*{client.image}" th:value="${client.image}" /> -->
 							<div class="form-group">
 								<div class="col-sm-9">
 									<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>

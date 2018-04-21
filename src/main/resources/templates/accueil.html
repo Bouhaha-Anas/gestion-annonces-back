@@ -29,6 +29,72 @@
 					</div>
 				</div>
 			</section>
+<!-- 			<section class="store-sec bg-grey pad-top-lg pad-bottom-lg" th:if="${rechercheProduits} != null" > -->
+<!-- 				<div class="container"> -->
+<!-- 					<div class="row"> -->
+<!-- 						<header class="col-xs-12 text-center header"> -->
+<!-- 							<h3 class="heading"><span class="clr">Résultat de votre Recherche</span></h3> -->
+<!-- 							<p>Par Catégorie && Nom d'Offre</p> -->
+<!-- 						</header> -->
+<!-- 					</div> -->
+<!-- 					<div class="row"> -->
+<!-- 					   <th:block th:each="produitRech : rechercheProduits"> -->
+<!-- 							<div class="col-xs-12 col-sm-6 col-md-3"> -->
+<!-- 								<div class="coupon-box mar-bottom-xs">	 -->
+<!-- 									<div class="img-holder"> -->
+<!-- 										<img src="images/img02.jpg" alt="image description" class="img-resposnive"> -->
+<!-- 									</div> -->
+<!-- 									<div class="txt-holder"> -->
+<!-- 										<h3 class="heading6"><a th:href="@{'/offre/' + ${produitRech.id}}"><th:block th:text="${produitRech.description}"></th:block></a></h3> -->
+<!-- 										<ul class="list-unstyled list-show"> -->
+<!-- 											<li><a href="#"><i class="icon icon-smile"></i> Verified</a></li> -->
+<!-- 											<li><a href="#"><i class="icon icon-user"></i> Used</a></li> -->
+<!-- 										</ul> -->
+<!-- 									    <a href="#" class="btn-primary md-round text-center text-uppercase">Obtenir Code Coupon</a>	 -->
+<!-- 										<time class="time text-center" datetime="2017-02-03 20:00">Echu à : <th:block th:text="${produitRech.dateFin}"></th:block></time> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</th:block>	 -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</section> -->
+<!-- 			<section class="store-sec bg-grey pad-top-lg pad-bottom-lg" th:if="${rechercheProduits} == null and ${#httpServletRequest.requestURI == '/accueil/resultatRecherche'} " > -->
+<!-- 				<div class="container"> -->
+<!-- 					<div class="row"> -->
+<!-- 						<header class="col-xs-12 text-center header"> -->
+<!-- 							<h3 class="heading"><span class="clr">Désolé, Pas de résultat</span><i class="fa fa-meh-o" style="font-size:48px;color:red"></i></h3> -->
+<!-- 						</header> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</section> -->
+			<section class="latest-coupon container pad-top-lg pad-bottom-md">
+				<div class="row">
+					<header class="col-xs-12 text-center header">
+						<h2 class="heading">Les Récents Codes Coupons & Offres </h2>
+					</header>
+				</div>
+				<div class="row">
+					<th:block th:each="produitActif,iterStat : ${produitsActifs}">
+								<div class="col-xs-12 col-sm-6 col-md-3">						
+									<div class="coupon-box mar-bottom-xs">
+										<div class="img-holder">
+											<img src="images/img02.jpg" alt="image description" class="img-resposnive">
+										</div>
+										<div class="txt-holder">
+											<h3 class="heading6"><a th:href="@{'/offre/' + ${produitActif.id}}"><th:block th:text="${produitActif.nom}"></th:block></a></h3>
+											<ul class="list-unstyled list-show">
+												<li><a href="#"><i class="icon icon-smile"></i> Verified</a></li>
+												<li><a href="#"><i class="icon icon-user"></i> Used</a></li>
+											</ul>
+											<a href="#" class="btn-primary md-round text-center text-uppercase">Obtenir Code Coupon</a>
+											<time class="time text-center" datetime="2017-02-03 20:00">Echu à : <th:block th:text="${produitActif.dateFin}"></th:block></time>
+										</div>
+									</div>
+								</div>
+					</th:block>
+				</div>				
+			</section>
 		</main>
 		
 		<footer th:replace="~{footer}" id="footer" >

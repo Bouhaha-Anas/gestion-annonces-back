@@ -13,6 +13,7 @@ import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,9 +76,9 @@ public class ProduitController
 		String date = request.getParameter("dateFinS");
 		
 		Categorie categorie = categorieService.findOneByNom(choixCategorie);
-		Date dateFin = new Date();
+		Date dateFin = null;
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try
 		{
 			dateFin = sdf.parse(date);
@@ -92,10 +93,9 @@ public class ProduitController
 		if (nomFichier != null && !nomFichier.isEmpty()) 
 		{	   
             nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
-            System.out.println(nomFichier);
             UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_PRODUITS);
             
-            produit.setImage(CHEMIN_FICHIERS_PRODUITS+nomFichier);
+            produit.setImage(nomFichier);
             produit.setEstActive(true);
     		produit.setDateFin(dateFin);
     		produit.setDateDebut(new Date());
@@ -106,7 +106,7 @@ public class ProduitController
         }
 		else
 		{
-			errorMessage = "Veuillez choisir une photo pour votre offre";
+			errorMessage = "Veuillez choisir une photo pour votre offre.";
 		}
 		
 		modelAndView.addObject("successMessage", successMessage);
@@ -114,4 +114,17 @@ public class ProduitController
 		modelAndView.setViewName("nouvelleOffre");
 		return modelAndView;
 	}
+	
+	@RequestMapping( value="/offre/{id}", method= RequestMethod.GET )
+	public ModelAndView getProduitDetails(@PathVariable("id") Long id)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		Produit produit = produitService.getProduit(id);
+		
+		modelAndView.addObject("produit", produit);
+		modelAndView.setViewName("offreDetails");
+		
+		return modelAndView;
+	}
+		
 }
