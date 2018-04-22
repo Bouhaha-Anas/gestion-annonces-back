@@ -7,6 +7,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity( name="commandes" )
 public class Commande implements Serializable
@@ -17,8 +19,8 @@ public class Commande implements Serializable
 	private CommandePK commandePK;
 	
 	private int quantite;
+	@Temporal( TemporalType.DATE )
 	private Date dateCommande;
-	private EtatCommande etatCommande;
 	
 	@ManyToOne
 	@JoinColumn( name="idProduit", referencedColumnName="id", insertable=false, updatable=false )
@@ -67,15 +69,5 @@ public class Commande implements Serializable
 	public void setClient(Client client) {
 		this.client = client;
 	}
-
-	public EtatCommande getEtatCommande() {
-		return etatCommande;
-	}
-
-	public void setEtatCommande(EtatCommande etatCommande) {
-		this.etatCommande = etatCommande;
-	}
-	
-	
 	
 }

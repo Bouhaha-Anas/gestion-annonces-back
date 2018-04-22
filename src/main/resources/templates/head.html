@@ -38,7 +38,14 @@
 									<button type="submit" class="sub-btn"><i class="icon-search"></i></button>
 								</fieldset>
 							</form>
-							<a href="#" class="cart"><i class="icon-cart"></i> <span class="num round">2</span></a>
+							<a th:href="@{/maPanier}" class="cart">
+								<i class="icon-cart"></i>
+								<span class="num round" th:if="${compteur != null}" th:text="${compteur}" >							
+								</span>
+								<span class="num round" th:if="${compteur == null}" >
+								0							
+								</span>		
+							</a>
 						</div>
 					</div>
 				</div>
