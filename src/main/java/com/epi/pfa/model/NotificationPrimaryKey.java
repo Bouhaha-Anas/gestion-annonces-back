@@ -5,12 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class RecommandationPrimaryKey implements Serializable
-{
+public class NotificationPrimaryKey implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long idClient;
-	private Long idCategorie;
+	private Long idProduit;
 
 	public Long getIdClient() {
 		return idClient;
@@ -20,12 +19,12 @@ public class RecommandationPrimaryKey implements Serializable
 		this.idClient = idClient;
 	}
 
-	public Long getIdCategorie() {
-		return idCategorie;
+	public Long getIdProduit() {
+		return idProduit;
 	}
 
-	public void setIdCategorie(Long idCategorie) {
-		this.idCategorie = idCategorie;
+	public void setIdProduit(Long idProduit) {
+		this.idProduit = idProduit;
 	}
 
 }

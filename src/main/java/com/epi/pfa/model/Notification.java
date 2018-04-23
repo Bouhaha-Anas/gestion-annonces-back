@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -19,11 +16,10 @@ public class Notification implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	@EmbeddedId
+	private NotificationPrimaryKey notificationPrimaryKey;
 	
-	@Column( length = 500 )
+	@Column( length = 800 )
 	private String contenu;
 	
 	@Temporal( TemporalType.DATE )
@@ -32,21 +28,17 @@ public class Notification implements Serializable
 	@Temporal( TemporalType.DATE )
 	private Date dateExpiration;
 	
-	@ManyToOne( fetch = FetchType.EAGER )
-	@JoinColumn( name = "client_id" )
+	@ManyToOne
+	@JoinColumn( name="idProduit", referencedColumnName="id", insertable=false, updatable=false )
+	private Produit produit;
+	
+	@ManyToOne
+	@JoinColumn( name="idClient", referencedColumnName="id", insertable=false, updatable=false )
 	private Client client;
 	
 	public Notification()
 	{
 		
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getContenu() {
@@ -73,6 +65,22 @@ public class Notification implements Serializable
 		this.dateExpiration = dateExpiration;
 	}
 
+	public NotificationPrimaryKey getNotificationPrimaryKey() {
+		return notificationPrimaryKey;
+	}
+
+	public void setNotificationPrimaryKey(NotificationPrimaryKey notificationPrimaryKey) {
+		this.notificationPrimaryKey = notificationPrimaryKey;
+	}
+
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+
 	public Client getClient() {
 		return client;
 	}
@@ -80,5 +88,12 @@ public class Notification implements Serializable
 	public void setClient(Client client) {
 		this.client = client;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Notification [notificationPrimaryKey=" + notificationPrimaryKey + ", contenu=" + contenu
+				+ ", dateEnregistrement=" + dateEnregistrement + ", dateExpiration=" + dateExpiration + ", produit="
+				+ produit + ", client=" + client + "]";
+	}
+			
 }

@@ -42,5 +42,10 @@ public class Recommandation
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Recommandation [recommandationPrimaryKey=" + recommandationPrimaryKey + ", categorie=" + categorie
+				+ ", client=" + client + "]";
+	}	
 }

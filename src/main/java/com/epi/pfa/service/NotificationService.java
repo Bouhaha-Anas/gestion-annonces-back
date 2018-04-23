@@ -29,4 +29,9 @@ public class NotificationService
 	{
 		return notificationRepository.findByDateExpiration(date);
 	}
+	
+	public Notification findByClientIdAndProduitId(Long idC, Long idP)
+	{
+		return notificationRepository.findByClientIdAndProduitId(idC, idP);
+	}
 }

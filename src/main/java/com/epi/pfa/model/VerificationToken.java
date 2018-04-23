@@ -55,5 +55,9 @@ public class VerificationToken
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "VerificationToken [id=" + id + ", token=" + token + ", compte=" + compte + "]";
+	}
 }

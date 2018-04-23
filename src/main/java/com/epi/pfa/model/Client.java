@@ -45,9 +45,9 @@ public class Client implements Serializable
 	@OneToMany( mappedBy="client" )
 	private List<Recommandation> recommandations;
 	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "client" )
+	@OneToMany( mappedBy="client" )
 	private List<Notification> notifications;
-	
+
 	public Client()
 	{
 		
@@ -150,22 +150,21 @@ public class Client implements Serializable
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-	@Override
-	public String toString() 
-	{
-		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone
-				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", image=" + image
-				+ ", compte=" + compte + ", contacts=" + contacts + ", commandes=" + commandes + ", recommandations="
-				+ recommandations + "]";
-	}
-
+	
 	public List<Notification> getNotifications() {
 		return notifications;
 	}
 
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone
+				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", image=" + image
+				+ ", compte=" + compte + ", contacts=" + contacts + ", commandes=" + commandes + ", recommandations="
+				+ recommandations + ", notifications=" + notifications + "]";
 	}
 	
 }

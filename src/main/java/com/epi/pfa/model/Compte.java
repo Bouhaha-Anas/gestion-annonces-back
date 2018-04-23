@@ -66,6 +66,11 @@ public class Compte implements Serializable
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Compte [id=" + id + ", login=" + login + ", motDePasse=" + motDePasse + ", role=" + role + ", enabled="
+				+ enabled + "]";
+	}
+
 }

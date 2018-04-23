@@ -30,6 +30,6 @@ public interface ProduitRepository extends JpaRepository<Produit, Long>
 			+ " c.nom = :nomC ", nativeQuery= true )
 	public List<Produit> searchByCategorie(@Param("nomP") String nomP, @Param("nomC") String nomC);
 	
-	@Query( value="select * from produits where dateDebut <= :date and categorie_id = :idCat ", nativeQuery= true )
+	@Query( value="select * from produits where date_debut <= :date and categorie_id = :idCat ", nativeQuery= true )
 	public List<Produit> getByDateAndCategorieId(@Param("date") Date date, @Param("idCat") Long id);
 }

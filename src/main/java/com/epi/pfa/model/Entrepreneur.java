@@ -175,5 +175,15 @@ public class Entrepreneur implements Serializable
 
 	public void setLogo(String logo) {
 		this.logo = logo;
-	}		
+	}
+
+	@Override
+	public String toString() {
+		return "Entrepreneur [id=" + id + ", denominationSociale=" + denominationSociale + ", formeJuridique="
+				+ formeJuridique + ", secteurActivite=" + secteurActivite + ", registreCommerce=" + registreCommerce
+				+ ", siegeSocial=" + siegeSocial + ", telephone=" + telephone + ", siteWeb=" + siteWeb
+				+ ", adresseMail=" + adresseMail + ", codeISIN=" + codeISIN + ", objetSocial=" + objetSocial
+				+ ", dateConstitution=" + dateConstitution + ", logo=" + logo + ", compte=" + compte + ", contacts="
+				+ contacts + ", produits=" + produits + "]";
+	}
 }

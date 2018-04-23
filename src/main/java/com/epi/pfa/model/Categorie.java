@@ -63,7 +63,10 @@ public class Categorie implements Serializable
 	public void setRecommandations(List<Recommandation> recommandations) {
 		this.recommandations = recommandations;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Categorie [id=" + id + ", nom=" + nom + ", produits=" + produits + ", recommandations="
+				+ recommandations + "]";
+	}	
 }

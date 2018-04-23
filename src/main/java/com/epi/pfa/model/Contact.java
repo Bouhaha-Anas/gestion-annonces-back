@@ -61,5 +61,10 @@ public class Contact implements Serializable
 	public void setObjet(String objet) {
 		this.objet = objet;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Contact [id=" + id + ", objet=" + objet + ", message=" + message + ", client=" + client
+				+ ", entrepreneur=" + entrepreneur + "]";
+	}
 }

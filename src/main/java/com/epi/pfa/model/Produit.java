@@ -50,6 +50,9 @@ public class Produit implements Serializable
 	@OneToMany( mappedBy="produit" )
 	private List<Commande> commandes;
 	
+	@OneToMany( mappedBy="produit" )
+	private List<Notification> notifications;
+
 	public Produit()
 	{
 		
@@ -150,15 +153,20 @@ public class Produit implements Serializable
 	public void setPrixApresRed(Float prixApresRed) {
 		this.prixApresRed = prixApresRed;
 	}
+	
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "Produit [id=" + id + ", nom=" + nom + ", description=" + description + ", prixAvantRed=" + prixAvantRed
 				+ ", prixApresRed=" + prixApresRed + ", image=" + image + ", dateDebut=" + dateDebut + ", dateFin="
 				+ dateFin + ", estActive=" + estActive + ", entrepreneur=" + entrepreneur + ", categorie=" + categorie
-				+ ", commandes=" + commandes + "]";
-	}
-	
-	
+				+ ", commandes=" + commandes + ", notifications=" + notifications + "]";
+	}	
 }
