@@ -24,19 +24,18 @@ public class PanierController
 	@Autowired
 	private ProduitService produitService;
 	
-	public static int i = 0;
-	
 	@RequestMapping( value= "/ajouterAuPanier/{id}", method = RequestMethod.GET )
-	public void ajouterAuPanier(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException
+	public void ajouterAuPanier(@PathVariable("id") Long id, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String sourceURL = request.getHeader("referer");
-		i += 1;
-		Panier panier = (Panier) session.getAttribute("panier");	
+		String beforeURL = request.getHeader("referer");
 		Produit produit = produitService.getProduit(id);
+		Panier panier = (Panier) session.getAttribute("panier");
 		panier.ajouterAuPanier(produit, 1);
-		request.setAttribute("compteur", i);
-		System.out.println("COMPTEUUUUUUUUUUUR :" +i);
-		response.sendRedirect(sourceURL);
+		
+		int i = (Integer) session.getAttribute("compteur");
+		i += 1;	
+		session.setAttribute("compteur", i);
+		response.sendRedirect(beforeURL);
 	}
 	
 	@RequestMapping( value="/maPanier", method = RequestMethod.GET )

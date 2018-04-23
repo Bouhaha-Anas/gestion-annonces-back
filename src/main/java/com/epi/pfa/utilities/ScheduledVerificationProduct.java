@@ -8,8 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.epi.pfa.model.Categorie;
+import com.epi.pfa.model.Client;
+import com.epi.pfa.model.Notification;
 import com.epi.pfa.model.Produit;
+import com.epi.pfa.model.Recommandation;
+import com.epi.pfa.service.CategorieService;
+import com.epi.pfa.service.ClientService;
+import com.epi.pfa.service.NotificationService;
 import com.epi.pfa.service.ProduitService;
+import com.epi.pfa.service.RecommandationService;
 
 @Component
 public class ScheduledVerificationProduct 
@@ -17,8 +25,20 @@ public class ScheduledVerificationProduct
 	@Autowired
 	private ProduitService produitService;
 	
+	@Autowired
+	private CategorieService categorieService;
+	
+	@Autowired
+	private RecommandationService recommandationService;
+	
+	@Autowired
+	private ClientService clientService;
+	
+	@Autowired
+	private NotificationService notificationService;
+	
 	@Scheduled(cron="0 0 0 * * *")
-	public void dateFinProduit()
+	public void verifierDateFinProduit()
 	{
 		Date date = new Date();
 		Calendar calendar = Calendar.getInstance();
@@ -40,6 +60,55 @@ public class ScheduledVerificationProduct
 			}
 		}
 		
+	}
+	
+	@Scheduled()
+	public void notificationSaver()
+	{
+		List<Categorie> categories = categorieService.findAllCategories();
+		for(int i =0; i< categories.size(); i++)
+		{
+			List<Recommandation> recommandations = recommandationService.getByCategorieId(categories.get(i).getId());
+			if( recommandations != null )
+			{
+				for( int j =0; j< recommandations.size(); j++ )
+				{
+					Client client = clientService.getClient(recommandations.get(j).getClient().getId());
+					List<Produit> nvProduits = produitService.getByDateAndCategorieId(new Date(), categories.get(i).getId());
+					for( int k =0; k< nvProduits.size(); k++ )
+					{
+						Calendar c = Calendar.getInstance();	   
+						c.add(Calendar.DAY_OF_MONTH, 3);    
+						Notification notification = new Notification();
+						notification.setContenu("L'offre "+nvProduits.get(k).getNom()+" a été publiée par "+nvProduits.get(k).getEntrepreneur().getDenominationSociale()+" dans la catégorie "+categories.get(i).getNom());		
+						notification.setClient(client);
+						notification.setDateEnregistrement(new Date());
+						notification.setDateExpiration(c.getTime());
+						notificationService.addNotification(notification);
+					}
+					
+				}
+			}
+		}
+	}
+	
+	@Scheduled()
+	public void deleteExpiredNotification()
+	{
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);	
+		date = calendar.getTime();
+		
+		List<Notification> notificationExpires = notificationService.findByDateExpiration(date);
+		for(int i =0; i< notificationExpires.size(); i++)
+		{
+			notificationService.deleteNotification(notificationExpires.get(i));
+		}
 	}
 	
 }

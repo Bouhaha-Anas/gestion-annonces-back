@@ -40,9 +40,9 @@
 							</form>
 							<a th:href="@{/maPanier}" class="cart">
 								<i class="icon-cart"></i>
-								<span class="num round" th:if="${compteur != null}" th:text="${compteur}" >							
+								<span class="num round" th:if="${session.compteur != null}" th:text="${session.compteur}" >							
 								</span>
-								<span class="num round" th:if="${compteur == null}" >
+								<span class="num round" th:if="${session.compteur == null}" >
 								0							
 								</span>		
 							</a>

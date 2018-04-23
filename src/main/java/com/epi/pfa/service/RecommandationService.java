@@ -27,4 +27,9 @@ public class RecommandationService
 	{
 		recommandationRepository.deleteRecommandation(idCli, idCat);
 	}
+	
+	public List<Recommandation> getByCategorieId(Long idCat)
+	{
+		return recommandationRepository.getByCategorieId(idCat);
+	}
 }

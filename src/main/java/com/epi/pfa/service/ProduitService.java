@@ -59,4 +59,9 @@ public class ProduitService
 	{
 		return produitRepository.searchByCategorie(nomP, nomC);
 	}
+	
+	public List<Produit> getByDateAndCategorieId(Date date, Long id)
+	{
+		return produitRepository.getByDateAndCategorieId(date, id);
+	}
 }

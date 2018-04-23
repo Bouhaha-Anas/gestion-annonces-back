@@ -17,4 +17,7 @@ public interface RecommandationRepository extends JpaRepository<Recommandation, 
 	@Query( value="delete from recommandations "
 			   + " where id_client = :idCli and id_categorie = :idCat", nativeQuery= true )
 	public void deleteRecommandation(@Param("idCli") Long idCli, @Param("idCat") Long idCat);
+	
+	@Query( value="select * from recommandations where id_categorie = : idCat", nativeQuery= true )
+	public List<Recommandation> getByCategorieId(@Param("idCat") Long idCat);
 }

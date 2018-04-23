@@ -39,10 +39,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication auth) throws IOException, ServletException 
     {
-         
+    	int i = 0; 
         HttpSession session = httpServletRequest.getSession();
         auth =  SecurityContextHolder.getContext().getAuthentication();  
         panier = new Panier();
+        session.setAttribute("compteur", i);
         session.setAttribute("panier", panier);
         session.setAttribute("username", auth.getName());
         session.setAttribute("authorities", auth.getAuthorities());
