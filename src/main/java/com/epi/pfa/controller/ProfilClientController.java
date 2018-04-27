@@ -1,7 +1,9 @@
 package com.epi.pfa.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 //import javax.validation.Valid;
@@ -39,23 +41,7 @@ public class ProfilClientController
 	@Autowired
 	RecommandationService recommandationService;
 	
-	@RequestMapping( value= "/profilClient", method= RequestMethod.GET )
-	public ModelAndView profilClient()
-	{
-		ModelAndView modelAndView = new ModelAndView();
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String login = auth.getName();
-		Compte compte = compteService.findOneByLogin(login);
-		Client client = clientService.findOneByCompte(compte);
-		
-		modelAndView.addObject("client", client);
-		modelAndView.setViewName("profilClient");
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping( value= "/profilClient/parametresGeneraux", method= RequestMethod.GET )
+	@RequestMapping( value= "/profilClient/informationsPersonnelles", method= RequestMethod.GET )
 	public ModelAndView profilClientParametresGeneraux()
 	{
 		ModelAndView modelAndView = new ModelAndView();
@@ -64,7 +50,9 @@ public class ProfilClientController
 		String login = auth.getName();
 		Compte compte = compteService.findOneByLogin(login);
 		Client client = clientService.findOneByCompte(compte);
+		Date date = new Date();
 		
+		modelAndView.addObject("date", date);
 		modelAndView.addObject("client", client);
 		modelAndView.setViewName("profilClient");
 		
@@ -93,6 +81,7 @@ public class ProfilClientController
 		ModelAndView modelAndView = new ModelAndView();
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("AUTH : "+auth);
 		String login = auth.getName();
 		Compte compte = compteService.findOneByLogin(login);
 		Client client = clientService.findOneByCompte(compte);
@@ -163,8 +152,8 @@ public class ProfilClientController
 		return modelAndView;
 	}
 	
-	@RequestMapping( value= "/profilClient/mesMassages", method= RequestMethod.GET )
-	public ModelAndView profilClientMessages()
+	@RequestMapping( value="/profilClient/informationsPersonnelles/modification", method= RequestMethod.GET )
+	public ModelAndView pageModifierProfilClient()
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -173,21 +162,29 @@ public class ProfilClientController
 		Compte compte = compteService.findOneByLogin(login);
 		Client client = clientService.findOneByCompte(compte);
 		
-		modelAndView.addObject("client", client);
+		modelAndView.addObject("client", client );		
 		modelAndView.setViewName("profilClient");
 		
 		return modelAndView;
 	}
 	
-	@RequestMapping( value="/profilClient/parametresGeneraux", method= RequestMethod.PUT )
-	public ModelAndView modifierProfilClient( Client client)
+	@RequestMapping( value="/profilClient/informationsPersonnelles/modification", method= RequestMethod.PUT )
+	public ModelAndView modifierProfilClient( Client client, HttpServletRequest request) throws ServletException
 	{
 		ModelAndView modelAndView = new ModelAndView();
+		String mdp = request.getParameter("mdp");
 		
-		clientService.updateClient(client);
-		
-		String successMessage = "Vos informations sont mises à jour avec succés";
-		modelAndView.addObject("successMessage", successMessage );		
+		if( mdp.equals(client.getCompte().getMotDePasse()) )
+		{
+			clientService.updateClient(client);
+			String successMessage = "Vos informations sont mises à jour avec succés";
+			modelAndView.addObject("successMessage", successMessage );
+		}
+		else
+		{
+			String errorMessage = "Vérifier votre mot de passe saisi";
+			modelAndView.addObject("errorMessage", errorMessage );
+		}		
 		modelAndView.setViewName("profilClient");
 		
 		return modelAndView;

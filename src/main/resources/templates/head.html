@@ -9,8 +9,6 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<span class="txt">Bienvenue chez Univers-Promo, Gagnez + avec nos offres</span>
-<!-- 							<img sec:authorize="hasAuthority('CLIENT')" th:src="@{/images/uploaded-images/images-clients/${session.client.image}}" class="image circle-pic"/> -->
-<!-- 							<img sec:authorize="hasAuthority('ENTREPRENEUR')" th:src="@{/images/uploaded-images/images-entrepreneurs/${session.entrepreneur.logo}}" class="image circle-pic"/> -->
 							<ul class="align-left list-unstyled">
 								<li sec:authorize="!isAuthenticated()" ><a th:href="@{/login}"><i class="fa fa-unlock-alt"></i> Login</a></li>
 								<li sec:authorize="isAuthenticated()" ><a th:href="@{/logout}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
@@ -38,14 +36,6 @@
 									<button type="submit" class="sub-btn"><i class="icon-search"></i></button>
 								</fieldset>
 							</form>
-							<a th:href="@{/maPanier}" class="cart">
-								<i class="icon-cart"></i>
-								<span class="num round" th:if="${session.compteur != null}" th:text="${session.compteur}" >							
-								</span>
-								<span class="num round" th:if="${session.compteur == null}" >
-								0							
-								</span>		
-							</a>
 						</div>
 					</div>
 				</div>
@@ -68,23 +58,23 @@
 											<li><a href="blog-detail.html">Blog Detail</a></li>
 										</ul>
 									</li>
-									<li><a href="#">Notifications</a></li>
+									<li sec:authorize="hasAuthority('CLIENT')" >
+										<a th:href="@{/notifications}">Notifications</a>
+									</li>
 									<li sec:authorize="hasAuthority('CLIENT')" >
 										<a href="#">Profil</a>							
 											<ul class="drop-down list-unstyled">
-												<li><a href="@{/profilClient/parametresGeneraux}">Paramètres généraux</a></li>
-												<li><a href="@{/profilClient/mesCommandes}">Mes commandes</a></li>
+												<li><a th:href="@{/profilClient/informationsPersonnelles}">Informations Personnelles</a></li>
 												<li><a th:href="@{/profilClient/mesRecommandations}">Mes recommandations</a></li>
-												<li><a href="@{/profilClient/mesMassages}">Mes messages</a></li>
+												<li><a th:href="@{/profilClient/mesCommandes}">Mes commandes</a></li>		
 											</ul>
 									</li>
 									
 									<li sec:authorize="hasAuthority('ENTREPRENEUR')" >
 										<a href="#">Profil</a>
 										<ul class="drop-down list-unstyled">
-											<li><a href="@{profilClient/parametresGeneraux}">Paramètres généraux</a></li>
-											<li><a href="@{/profilClient/mesCommandes}">Mes offres</a></li>
-											<li><a href="@{/profilClient/mesMassages}">Mes messages</a></li>
+											<li><a th:href="@{/profilEntrepreneur/informationsPersonnelles}">Informations Personnelles</a></li>
+											<li><a th:href="@{/profilClient/mesOffres}">Mes offres</a></li>
 										</ul>
 									</li>
 								</ul>

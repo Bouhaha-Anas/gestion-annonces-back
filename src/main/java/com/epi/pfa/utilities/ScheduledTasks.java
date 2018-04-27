@@ -1,5 +1,6 @@
 package com.epi.pfa.utilities;
 
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ import com.epi.pfa.service.ProduitService;
 import com.epi.pfa.service.RecommandationService;
 
 @Component
-public class ScheduledVerificationProduct 
+public class ScheduledTasks 
 {
 	@Autowired
 	private ProduitService produitService;
@@ -80,7 +81,6 @@ public class ScheduledVerificationProduct
 					{
 						Calendar c = Calendar.getInstance();	   
 						c.add(Calendar.DAY_OF_MONTH, 3);
-						System.out.println("PROOOODUIIIT "+k+ " : "+ nvProduits.get(k).getNom() );
 						Notification notificationTemp = notificationService.findByClientIdAndProduitId( client.getId(), nvProduits.get(k).getId() );
 						if( notificationTemp == null )
 						{
@@ -101,7 +101,7 @@ public class ScheduledVerificationProduct
 		}
 	}
 	
-	//@Scheduled( fixedDelay = 5000 )
+	//@Scheduled( fixedRate = 5000 )
 	public void deleteExpiredNotification()
 	{
 		Date date = new Date();
@@ -116,8 +116,7 @@ public class ScheduledVerificationProduct
 		List<Notification> notificationExpires = notificationService.findByDateExpiration(date);
 		for(int i =0; i< notificationExpires.size(); i++)
 		{
-			notificationService.deleteNotification(notificationExpires.get(i));
+			notificationService.deleteNotification(notificationExpires.get(i)); 
 		}
 	}
-	
 }

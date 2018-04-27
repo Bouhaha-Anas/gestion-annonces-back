@@ -9,6 +9,7 @@ public class CommandePK implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+
 	private Long idClient;
 	private Long idProduit;
 

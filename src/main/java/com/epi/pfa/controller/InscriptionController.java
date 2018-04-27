@@ -105,6 +105,7 @@ public class InscriptionController
 		ModelAndView modelAndView = new ModelAndView();
 		String errorMessage = null;
 		Client tempClient = clientService.findOneByAdresseMail(client.getAdresseMail());
+		String mdp = req.getParameter("mdp");
 		
 		if(tempClient != null)
 		{
@@ -116,40 +117,50 @@ public class InscriptionController
 		}
 		else
 		{
-			
-			Part part = req.getPart("imageC");
-			String nomFichier = UploadingTask.getNomFichier(part);
-			if (nomFichier != null && !nomFichier.isEmpty()) 
-			{	   
-	            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
-	            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_CLIENTS);
-	            client.setImage(nomFichier);
-	            clientService.addClient(client);
-				try
+			if( mdp.equals(client.getCompte().getMotDePasse()) )
+			{
+				Part part = req.getPart("imageC");
+				String nomFichier = UploadingTask.getNomFichier(part);
+				if (nomFichier != null && !nomFichier.isEmpty()) 
+				{	   
+		            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
+		            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_CLIENTS);
+		            client.setImage(nomFichier);
+		            clientService.addClient(client);
+					try
+					{
+						String appUrl = "inscriptionClient";
+						applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(client.getCompte(), request.getLocale(), appUrl) );
+						modelAndView.setViewName("confirmationInscription");				
+					}
+					catch(Exception e)
+					{
+						errorMessage = "Erreur lors de l'envoi de l'email d'activation, veuillez réessayer";
+						clientService.deleteClient(client.getId());
+						modelAndView.addObject("errorMessage", errorMessage);
+						modelAndView.addObject("client", new Client());
+						modelAndView.setViewName("inscription");
+						e.printStackTrace();
+					}
+					return modelAndView;
+		        }
+				else
 				{
-					String appUrl = "inscriptionClient";
-					applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(client.getCompte(), request.getLocale(), appUrl) );
-					modelAndView.setViewName("confirmationInscription");				
-				}
-				catch(Exception e)
-				{
-					errorMessage = "Erreur lors de l'envoi de l'email d'activation, veuillez réessayer";
-					clientService.deleteClient(client.getId());
+					errorMessage = "Veuillez choisir une photo de votre profil.";
 					modelAndView.addObject("errorMessage", errorMessage);
 					modelAndView.addObject("client", new Client());
 					modelAndView.setViewName("inscription");
-					e.printStackTrace();
+					return modelAndView;
 				}
-				return modelAndView;
-	        }
+			}
 			else
 			{
-				errorMessage = "Veuillez choisir une photo de votre profil.";
+				errorMessage = "Vérifier votre mot de passe.";
 				modelAndView.addObject("errorMessage", errorMessage);
 				modelAndView.addObject("client", new Client());
 				modelAndView.setViewName("inscription");
 				return modelAndView;
-			}		
+			}
 		}
 	}
 	
@@ -174,6 +185,7 @@ public class InscriptionController
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		String errorMessage = null;
+		String mdp = req.getParameter("mdp");
 		Entrepreneur tempEntrepreneur = entrepreneurService.findOneByAdresseMail(entrepreneur.getAdresseMail());
 
 		if(tempEntrepreneur != null)
@@ -186,40 +198,50 @@ public class InscriptionController
 		}
 		else
 		{
-			Part part = req.getPart("logoE");
-			String nomFichier = UploadingTask.getNomFichier(part);
-			if (nomFichier != null && !nomFichier.isEmpty()) 
-			{	   
-	            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
-	            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_ENTREPRENEURS);
-	            entrepreneur.setLogo(nomFichier);
-				entrepreneurService.addEntrepreneur(entrepreneur);
-				try
+			if( mdp.equals(entrepreneur.getCompte().getMotDePasse()) )
+			{
+				Part part = req.getPart("logoE");
+				String nomFichier = UploadingTask.getNomFichier(part);
+				if (nomFichier != null && !nomFichier.isEmpty()) 
+				{	   
+		            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
+		            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_ENTREPRENEURS);
+		            entrepreneur.setLogo(nomFichier);
+					entrepreneurService.addEntrepreneur(entrepreneur);
+					try
+					{
+						String appUrl = "inscriptionEntrepreneur";
+						applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(entrepreneur.getCompte(), request.getLocale(), appUrl) );
+						modelAndView.setViewName("confirmationInscription");			
+					}
+					catch(Exception e)
+					{
+						entrepreneurService.deleteEntrepreneur(entrepreneur.getId());
+						errorMessage = "Erreur lors de l'envoi de l'email d'activation, veuillez réessayer";
+						modelAndView.addObject("errorMessage", errorMessage);
+						modelAndView.addObject("entrepreneur", new Entrepreneur());
+						modelAndView.setViewName("inscription");
+						e.printStackTrace();
+					}
+					return modelAndView;
+		        }
+				else
 				{
-					String appUrl = "inscriptionEntrepreneur";
-					applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(entrepreneur.getCompte(), request.getLocale(), appUrl) );
-
-					modelAndView.setViewName("confirmationInscription");			
-				}
-				catch(Exception e)
-				{
-					entrepreneurService.deleteEntrepreneur(entrepreneur.getId());
-					errorMessage = "Erreur lors de l'envoi de l'email d'activation, veuillez réessayer";
+					errorMessage = "Veuillez choisir un logo pour votre entreprise.";
 					modelAndView.addObject("errorMessage", errorMessage);
 					modelAndView.addObject("entrepreneur", new Entrepreneur());
 					modelAndView.setViewName("inscription");
-					e.printStackTrace();
+					return modelAndView;
 				}
-				return modelAndView;
-	        }
+			}
 			else
 			{
-				errorMessage = "Veuillez choisir un logo pour votre entreprise.";
+				errorMessage = "Vérifier votre mot de passe.";
 				modelAndView.addObject("errorMessage", errorMessage);
 				modelAndView.addObject("entrepreneur", new Entrepreneur());
 				modelAndView.setViewName("inscription");
 				return modelAndView;
-			}	
+			}
 		}
 	}
 }

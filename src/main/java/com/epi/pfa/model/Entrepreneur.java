@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity( name="entrepreneurs" )
 public class Entrepreneur implements Serializable
@@ -31,6 +33,8 @@ public class Entrepreneur implements Serializable
 	private String adresseMail;
 	private String codeISIN;
 	private String objetSocial;
+	
+	@Temporal( TemporalType.DATE )
 	private Date dateConstitution;
 	private String logo;
 	
@@ -38,10 +42,10 @@ public class Entrepreneur implements Serializable
 	@JoinColumn( unique=true )
 	private Compte compte;
 	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "entrepreneur" )
+	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "entrepreneur")
 	private List<Contact> contacts;
 	
-	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "entrepreneur" )
+	@OneToMany( cascade=CascadeType.ALL, orphanRemoval = true, mappedBy = "entrepreneur")
 	private List<Produit> produits;
 	
 	public Entrepreneur()

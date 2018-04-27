@@ -16,4 +16,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Noti
 	
 	@Query( value= "select * from notifications where id_client = :idC and id_produit = :idP", nativeQuery= true )
 	Notification findByClientIdAndProduitId( @Param("idC") Long idC, @Param("idP") Long idP );
+	
+	@Query( value="select * from notifications where id_client = :idC", nativeQuery= true )
+	List<Notification> findByIdClient(@Param("idC") Long idC);
 }

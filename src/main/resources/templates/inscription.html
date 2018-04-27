@@ -36,48 +36,46 @@
 									<p>Remplir le formulaire pour valider votre inscription</p>
 									<form enctype='multipart/form-data' autocomplete="off" th:if="${#httpServletRequest.requestURI == '/inscriptionClient'}" th:action="@{/inscriptionClient}" th:object="${client}" method="post" class="register-form">
 										<fieldset>
-											<input type="text" th:field="*{nom}" placeholder="Nom *" class="form-control" />
-											<input type="text" th:field="*{prenom}"	placeholder="Prénom *" class="form-control" />
+											<input type="text" required="required" th:field="*{nom}" placeholder="Nom *" class="form-control" />
+											<input type="text" required="required" th:field="*{prenom}"	placeholder="Prénom *" class="form-control" />
 											<select th:field="*{ville}" class="form-control" >
 								   				<option th:each="villes : ${T(com.epi.pfa.model.Ville).values()}" 
 											          th:value="${villes}" 
 											          th:text="${villes}">
 											   	</option>
 											</select>						
-											<input type="text" th:field="*{telephone}"	placeholder="Téléphone *" class="form-control" />
-											<input type="email" th:field="*{adresseMail}" placeholder="E-mail *" class="form-control" />
-											<input type="text" th:field="*{adresse}" placeholder="Adresse *" class="form-control" />
-											<input type="file" name="imageC" class="form-control" />
-											<input type="text" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
-											<input type="password" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
+											<input type="text" required="required" th:field="*{telephone}"	placeholder="Téléphone *" class="form-control" />
+											<input type="email" required="required" th:field="*{adresseMail}" placeholder="E-mail *" class="form-control" />
+											<input type="text" required="required" th:field="*{adresse}" placeholder="Adresse *" class="form-control" />
+											<input type="file" required="required" name="imageC" class="form-control" />
+											<input type="text" required="required" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
+											<input type="password" required="required" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
+											<input type="password" required="required" name="mdp" placeholder="Resaisir... *" class="form-control" />
 											<button type="submit" class="btn-primary text-center text-uppercase">Créer un compte</button>
 										</fieldset>
 									</form>
 									
 									<form enctype='multipart/form-data' autocomplete="off" th:if="${#httpServletRequest.requestURI == '/inscriptionEntrepreneur'}" th:action="@{/inscriptionEntrepreneur}" th:object="${entrepreneur}" method="post" class="register-form">
 										<fieldset>
-											<input type="text" th:field="*{denominationSociale}" placeholder="Dénomination sociale" class="form-control" />
-											<input type="text" th:field="*{formeJuridique}"	placeholder="Forme juridique *" class="form-control" />
-											<input type="text" th:field="*{secteurActivite}"	placeholder="Secteur d'activité *" class="form-control" />						
-											<input type="text" th:field="*{registreCommerce}"	placeholder="Registre de commerce" class="form-control" />
-											<input type="text" th:field="*{siegeSocial}"	placeholder="Siège social *" class="form-control" />
-											<input type="text" th:field="*{adresseMail}"	placeholder="exemple@exemple.com" class="form-control" />
-											<input type="text" th:field="*{telephone}"	placeholder="Télephone *" class="form-control" />
-											<input type="text" th:field="*{siteWeb}"	placeholder="Site web *" class="form-control" />
-											<input type="text" th:field="*{codeISIN}"	placeholder="Code ISIN *" class="form-control" />
-											<input type="text" th:field="*{objetSocial}"	placeholder="Objet social *" class="form-control" />
-											<input type="text" th:field="*{dateConstitution}"	placeholder="DD/MM/YY" class="form-control" />
-											<input type="file" name="logoE" class="form-control" />
-											<input type="text" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
-											<input type="text" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
+											<input type="text" required="required" th:field="*{denominationSociale}" placeholder="Dénomination sociale" class="form-control" />
+											<input type="text" required="required" th:field="*{formeJuridique}"	placeholder="Forme juridique *" class="form-control" />
+											<input type="text" required="required" th:field="*{secteurActivite}"	placeholder="Secteur d'activité *" class="form-control" />						
+											<input type="text" required="required" th:field="*{registreCommerce}"	placeholder="Registre de commerce" class="form-control" />
+											<input type="text" required="required" th:field="*{siegeSocial}"	placeholder="Siège social *" class="form-control" />
+											<input type="text" required="required" th:field="*{adresseMail}"	placeholder="exemple@exemple.com" class="form-control" />
+											<input type="text" required="required" th:field="*{telephone}"	placeholder="Télephone *" class="form-control" />
+											<input type="text" required="required" th:field="*{siteWeb}"	placeholder="Site web *" class="form-control" />
+											<input type="text" required="required" th:field="*{codeISIN}"	placeholder="Code ISIN *" class="form-control" />
+											<input type="text" required="required" th:field="*{objetSocial}"	placeholder="Objet social *" class="form-control" />
+											<input type="text" required="required" th:field="*{dateConstitution}"	placeholder="DD/MM/YY" class="form-control" />
+											<input type="file" required="required" name="logoE" class="form-control" />
+											<input type="text" required="required" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
+											<input type="password" required="required" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />
+											<input type="password" required="required" name="mdp" placeholder="Resaisir... *" class="form-control" />
 											<button type="submit" class="btn-primary text-center text-uppercase">Créer un compte</button>
 										</fieldset>
 									</form>
 									<span th:utext="${errorMessage}"></span>
-									<div class="btn-holder">
-										<a href="#" class="google-btn"><i class="fa fa-google-plus"></i> Sign in with Goolge</a>
-										<a href="#" class="fb-btn"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
-									</div>
 								</div>
 								<div class="img-holder">
 									<img src="images/img62.jpg" alt="image description" class="img-responsive">

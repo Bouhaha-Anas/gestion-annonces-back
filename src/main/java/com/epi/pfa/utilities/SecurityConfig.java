@@ -37,8 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		auth.jdbcAuthentication()
 				.usersByUsernameQuery("select login, mot_de_passe, enabled from comptes where login=?")
 				.authoritiesByUsernameQuery("select login, role from comptes where login=?")
-				.dataSource(dataSource);
-		
+				.dataSource(dataSource);	
 	}
 
 	@Override
@@ -53,11 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.antMatchers("/inscriptionClient").permitAll()
 			.antMatchers("/inscription").permitAll()
 			.antMatchers("/offre/**").permitAll()
-			.antMatchers("/maPanier").permitAll()
 			.antMatchers("/accueil").permitAll()
 			.antMatchers("/login").permitAll()
-			.antMatchers("/maPanier", "/ajouterAuPanier/{id}", "/profilClient", "profilClient/mesMassages", "profilClient/parametresGeneraux", "profilClient/mesCommandes", "profilClient/mesRecommandations").hasAnyAuthority("CLIENT")
-			.antMatchers("/nouvelleOffre", "/profilEntrepreneur", "profilClient/parametresGeneraux", "profilClient/mesMassages").hasAnyAuthority("ENTREPRENEUR")
+			.antMatchers("/validerCommande/promotion/{id}", "/profilClient/informationsPersonnelles", "/profilClient/mesCommandes", "/profilClient/mesRecommandations").hasAnyAuthority("CLIENT")
+			.antMatchers("/nouvelleOffre", "/profilEntrepreneur/informationsPersonnelles", "/profilEntrepreneur/informationsPersonnelles/modification").hasAnyAuthority("ENTREPRENEUR")
 			.anyRequest()
 				.authenticated()
 			.and()
@@ -89,7 +87,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	}
 	
 	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	public HttpSessionEventPublisher httpSessionEventPublisher() 
+	{
 	    return new HttpSessionEventPublisher();
 	}
 	

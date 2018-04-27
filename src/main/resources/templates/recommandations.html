@@ -28,6 +28,7 @@
 									<input disabled id="btnSubmit" type="submit" class="btn btn-primary" value="Ajouter à mes favoris" style="float: right;" />
 								</form>
 								<hr>
+								<strong>Ce que vous avez déjà recommandé :</strong>
 								<form th:action="@{/profilClient/mesRecommandations}" th:method="delete">
 									<input th:each="mesFav : ${mesFavoris}" type="checkbox" th:text="${mesFav.nom}" th:value="${mesFav.nom}" name="remoCat" />
 									<input disabled id="btnSupp" type="submit" class="btn btn-danger" value="Retirer de mes favoris" style="float: right;" />

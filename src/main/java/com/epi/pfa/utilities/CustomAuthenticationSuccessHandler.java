@@ -19,7 +19,6 @@ import com.epi.pfa.model.Entrepreneur;
 import com.epi.pfa.service.ClientService;
 import com.epi.pfa.service.CompteService;
 import com.epi.pfa.service.EntrepreneurService;
-import com.epi.pfa.service.Panier;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler 
@@ -33,18 +32,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	private CompteService compteService;
 	
-	@Autowired
-	private Panier panier;
-	
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication auth) throws IOException, ServletException 
     {
-    	int i = 0; 
         HttpSession session = httpServletRequest.getSession();
         auth =  SecurityContextHolder.getContext().getAuthentication();  
-        panier = new Panier();
-        session.setAttribute("compteur", i);
-        session.setAttribute("panier", panier);
         session.setAttribute("username", auth.getName());
         session.setAttribute("authorities", auth.getAuthorities());
         String beforeURL = httpServletRequest.getHeader("referer");

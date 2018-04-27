@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -19,6 +20,7 @@ public class Commande implements Serializable
 	private CommandePK commandePK;
 	
 	private int quantite;
+	
 	@Temporal( TemporalType.DATE )
 	private Date dateCommande;
 	
@@ -69,5 +71,7 @@ public class Commande implements Serializable
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	
+	
 	
 }

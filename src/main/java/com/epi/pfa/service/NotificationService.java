@@ -34,4 +34,9 @@ public class NotificationService
 	{
 		return notificationRepository.findByClientIdAndProduitId(idC, idP);
 	}
+	
+	public List<Notification> findByIdClient(Long idC)
+	{
+		return notificationRepository.findByIdClient(idC);
+	}
 }

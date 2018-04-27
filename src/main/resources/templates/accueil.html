@@ -87,7 +87,7 @@
 												<li><a href="#"><i class="icon icon-smile"></i> Verified</a></li>
 												<li><a href="#"><i class="icon icon-user"></i> Used</a></li>
 											</ul>
-											<a id="btnAjoutPanier" th:href="@{'/ajouterAuPanier/' + ${produitActif.id}}" class="btn-primary md-round text-center text-uppercase">Ajouter Au Panier</a>
+											<a id="btnAjoutPanier" th:href="@{'/validerCommande/promotion/' + ${produitActif.id}}" class="btn-primary md-round text-center text-uppercase">Acheter</a>
 											<time class="time text-center" datetime="2017-02-03 20:00">Echu à : <th:block th:text="${produitActif.dateFin}"></th:block></time>
 										</div>
 									</div>
