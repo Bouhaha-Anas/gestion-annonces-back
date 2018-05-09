@@ -36,7 +36,6 @@ public class ProfilEntrepreneurController
 	public ModelAndView profilEntrepreneurParametresGeneraux()
 	{
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("AAAAAAAAAAAAAAAAAA33333333");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
 		Compte compte = compteService.findOneByLogin(login);
@@ -71,12 +70,9 @@ public class ProfilEntrepreneurController
 	{
 		ModelAndView modelAndView = new ModelAndView();
 		String mdp = request.getParameter("mdp");
-		String dateConstitution = request.getParameter("dateCons");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if( mdp.equals(entrepreneur.getCompte().getMotDePasse()) )
 		{
-			entrepreneur.setDateConstitution(sdf.parse(dateConstitution));
 			entrepreneurService.updateEntrepreneur(entrepreneur);
 			String successMessage = "Vos informations sont mises à jour avec succés";
 			modelAndView.addObject("successMessage", successMessage );		
