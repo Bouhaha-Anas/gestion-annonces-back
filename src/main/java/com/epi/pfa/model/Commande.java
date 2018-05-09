@@ -3,9 +3,10 @@ package com.epi.pfa.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -16,8 +17,9 @@ public class Commande implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
-	private CommandePK commandePK;
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	private Long id;
 	
 	private int quantite;
 	
@@ -25,20 +27,12 @@ public class Commande implements Serializable
 	private Date dateCommande;
 	
 	@ManyToOne
-	@JoinColumn( name="idProduit", referencedColumnName="id", insertable=false, updatable=false )
+	@JoinColumn( name="idProduit", referencedColumnName="id" )
 	private Produit produit;
 	
 	@ManyToOne
-	@JoinColumn( name="idClient", referencedColumnName="id", insertable=false, updatable=false )
+	@JoinColumn( name="idClient", referencedColumnName="id" )
 	private Client client;
-
-	public CommandePK getCommandePK() {
-		return commandePK;
-	}
-
-	public void setCommandePK(CommandePK commandePK) {
-		this.commandePK = commandePK;
-	}
 
 	public int getQuantite() {
 		return quantite;
@@ -70,8 +64,5 @@ public class Commande implements Serializable
 
 	public void setClient(Client client) {
 		this.client = client;
-	}
-	
-	
-	
+	}	
 }

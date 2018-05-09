@@ -36,9 +36,6 @@ public class Client implements Serializable
 	@JoinColumn
 	private Compte compte;
 	
-	@OneToMany( cascade=CascadeType.ALL, mappedBy = "client" )
-	private List<Contact> contacts;
-	
 	@OneToMany( mappedBy="client" )
 	private List<Commande> commandes;
 	
@@ -109,14 +106,6 @@ public class Client implements Serializable
 		this.ville = ville;
 	}
 
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
-
 	public List<Commande> getCommandes() {
 		return commandes;
 	}
@@ -159,12 +148,6 @@ public class Client implements Serializable
 		this.notifications = notifications;
 	}
 
-	@Override
-	public String toString() {
-		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone
-				+ ", adresseMail=" + adresseMail + ", adresse=" + adresse + ", ville=" + ville + ", image=" + image
-				+ ", compte=" + compte + ", contacts=" + contacts + ", commandes=" + commandes + ", recommandations="
-				+ recommandations + ", notifications=" + notifications + "]";
-	}
+	
 	
 }

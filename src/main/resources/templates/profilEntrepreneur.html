@@ -31,21 +31,9 @@
 			                  <table class="table table-user-information">
 			                    <tbody>
 			                      <tr>
-			                        <td>Registre de commerce</td>
-			                        <td th:text="${entrepreneur.registreCommerce}"></td>
-			                      </tr>
-			                      <tr>
-			                        <td>Date de constitution</td>
-			                        <td th:text="${entrepreneur.dateConstitution}"></td>
-			                      </tr>
-			                      <tr>
 			                        <td>Secteur d'activité</td>
 			                        <td th:text="${entrepreneur.secteurActivite}"></td>
 			                      </tr>		                   
-			                      <tr>
-			                        <td>Forme juridique</td>
-			                        <td th:text="${entrepreneur.formeJuridique}"></td>
-			                      </tr>
 			                      <tr>
 			                        <td>Adresse-mail</td>
 			                        <td th:text="${entrepreneur.adresseMail}"></td>
@@ -53,15 +41,7 @@
 			                      <tr>
 			                        <td>Siège social</td>
 			                        <td th:text="${entrepreneur.siegeSocial}"></td>
-			                      </tr>
-			                      <tr>
-			                        <td>Objet social</td>
-			                        <td th:text="${entrepreneur.objetSocial}"></td>
-			                      </tr>
-			                      <tr>
-			                        <td>Code ISIN</td>
-			                        <td th:text="${entrepreneur.codeISIN}"></td>
-			                      </tr>
+			                      </tr> 
 			                      <tr>
 			                        <td>Site web</td>
 			                        <td th:text="${entrepreneur.siteWeb}"></td>
@@ -106,32 +86,11 @@
 									<input type="text" required="required" th:field="*{denominationSociale}"  th:value="${entrepreneur.denominationSociale}" class="form-control" /> 
 								</div>
 							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-9">
-								<label>Registre de commerce :</label>
-									<input type="text" required="required" th:field="*{registreCommerce}"  th:value="${entrepreneur.registreCommerce}" class="form-control" /> 
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-9">
-								<label>Date de constitution :</label>
-									<input type="date" name="dateCons" required="required" class="form-control" /> 
-								</div>
-							</div>
 					
 						    <div class="form-group">
 								<div class="col-sm-9">
 									<label>Secteur d'activité :</label>
 									<input type="text" required="required" th:field="*{secteurActivite}"	th:value="${entrepreneur.secteurActivite}" class="form-control" /> 
-								</div>
-							</div>
-						
-						    <div class="form-group">
-								<div class="col-sm-9">
-									<label>Forme juridique :</label>
-									<input type="text" required="required" th:field="*{formeJuridique}" th:value="${entrepreneur.formeJuridique}" class="form-control" /> 
 								</div>
 							</div>
 							
@@ -146,20 +105,6 @@
 								<div class="col-sm-9">
 									<label>Siège social :</label>
 									<input type="text" required="required" th:field="*{siegeSocial}" th:value="${entrepreneur.siegeSocial}" class="form-control" /> 
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-9">
-									<label>Objet social :</label>
-									<input type="text" required="required" th:field="*{objetSocial}" th:value="${entrepreneur.objetSocial}" class="form-control" /> 
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-9">
-									<label>Code ISIN :</label>
-									<input type="text" required="required" th:field="*{codeISIN}" th:value="${entrepreneur.codeISIN}" class="form-control" /> 
 								</div>
 							</div>
 							

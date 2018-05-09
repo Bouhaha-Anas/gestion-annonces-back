@@ -58,16 +58,11 @@
 									<form enctype='multipart/form-data' autocomplete="off" th:if="${#httpServletRequest.requestURI == '/inscriptionEntrepreneur'}" th:action="@{/inscriptionEntrepreneur}" th:object="${entrepreneur}" method="post" class="register-form">
 										<fieldset>
 											<input type="text" required="required" th:field="*{denominationSociale}" placeholder="Dénomination sociale" class="form-control" />
-											<input type="text" required="required" th:field="*{formeJuridique}"	placeholder="Forme juridique *" class="form-control" />
-											<input type="text" required="required" th:field="*{secteurActivite}"	placeholder="Secteur d'activité *" class="form-control" />						
-											<input type="text" required="required" th:field="*{registreCommerce}"	placeholder="Registre de commerce" class="form-control" />
+											<input type="text" required="required" th:field="*{secteurActivite}"	placeholder="Secteur d'activité *" class="form-control" />							
 											<input type="text" required="required" th:field="*{siegeSocial}"	placeholder="Siège social *" class="form-control" />
-											<input type="text" required="required" th:field="*{adresseMail}"	placeholder="exemple@exemple.com" class="form-control" />
+											<input type="email" required="required" th:field="*{adresseMail}"	placeholder="exemple@exemple.com" class="form-control" />
 											<input type="text" required="required" th:field="*{telephone}"	placeholder="Télephone *" class="form-control" />
-											<input type="text" required="required" th:field="*{siteWeb}"	placeholder="Site web *" class="form-control" />
-											<input type="text" required="required" th:field="*{codeISIN}"	placeholder="Code ISIN *" class="form-control" />
-											<input type="text" required="required" th:field="*{objetSocial}"	placeholder="Objet social *" class="form-control" />
-											<input type="text" required="required" th:field="*{dateConstitution}"	placeholder="DD/MM/YY" class="form-control" />
+											<input type="text" required="required" th:field="*{siteWeb}"	placeholder="Site web *" class="form-control" />							
 											<input type="file" required="required" name="logoE" class="form-control" />
 											<input type="text" required="required" th:field="*{compte.login}"	placeholder="Login *" class="form-control" />
 											<input type="password" required="required" th:field="*{compte.motDePasse}"	placeholder="Mot de passe *" class="form-control" />

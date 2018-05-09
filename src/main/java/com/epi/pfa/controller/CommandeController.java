@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.epi.pfa.model.Client;
 import com.epi.pfa.model.Commande;
-import com.epi.pfa.model.CommandePK;
 import com.epi.pfa.model.Compte;
 import com.epi.pfa.model.Produit;
 import com.epi.pfa.service.ClientService;
@@ -63,12 +62,7 @@ public class CommandeController
 		int quantite = Integer.parseInt(request.getParameter("quantite"));
 		
 		Commande commande = new Commande();
-		CommandePK commandePK = new CommandePK();
 		
-		commandePK.setIdClient(client.getId());
-		commandePK.setIdProduit(id);
-		
-		commande.setCommandePK(commandePK);
 		commande.setQuantite(quantite);
 		commande.setDateCommande(new Date());
 		commande.setClient(client);

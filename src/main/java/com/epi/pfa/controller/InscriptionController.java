@@ -126,6 +126,7 @@ public class InscriptionController
 		            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
 		            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_CLIENTS);
 		            client.setImage(nomFichier);
+		            client.getCompte().setEnabled(false);
 		            clientService.addClient(client);
 					try
 					{
@@ -207,6 +208,7 @@ public class InscriptionController
 		            nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1).substring(nomFichier.lastIndexOf('\\') + 1);
 		            UploadingTask.ecrireFichier(part, nomFichier, CHEMIN_FICHIERS_ENTREPRENEURS);
 		            entrepreneur.setLogo(nomFichier);
+		            entrepreneur.getCompte().setEnabled(false);
 					entrepreneurService.addEntrepreneur(entrepreneur);
 					try
 					{
